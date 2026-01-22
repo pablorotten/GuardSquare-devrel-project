@@ -1,0 +1,79 @@
+{
+  "projectVersion": 2,
+  "files": [
+    "UnCrackable-Level1.apk"
+  ],
+  "treeExpansionsV2": [
+    "t:JResources//resources.arsc//res//values-v21",
+    "t:JResources//resources.arsc//res//values",
+    "c:sg.vantagepoint.a.a",
+    "t:JResources//resources.arsc//res//values-w820dp",
+    "t:JResources//res//mipmap-xhdpi",
+    "t:JResources//res//layout",
+    "t:JResources//res//menu",
+    "t:JResources//res//mipmap-xxxhdpi",
+    "t:JResources//res//mipmap-mdpi",
+    "p:sg.vantagepoint.uncrackable1",
+    "c:owasp.mstg.uncrackable1.R",
+    "t:JResources//res//mipmap-xxhdpi",
+    "t:JResources//res//mipmap-hdpi",
+    "t:JResources//META-INF"
+  ],
+  "codeData": {
+    "comments": [],
+    "renames": []
+  },
+  "openTabs": [
+    {
+      "type": "class",
+      "tabPath": "sg.vantagepoint.uncrackable1.MainActivity",
+      "subPath": "java",
+      "caret": 1482,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false,
+      "previewTab": false
+    },
+    {
+      "type": "class",
+      "tabPath": "sg.vantagepoint.uncrackable1.a",
+      "subPath": "java",
+      "caret": 0,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": true,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false,
+      "previewTab": false
+    },
+    {
+      "type": "class",
+      "tabPath": "sg.vantagepoint.a.a",
+      "subPath": "java",
+      "caret": 11,
+      "view": {
+        "x": 0,
+        "y": 0
+      },
+      "active": false,
+      "pinned": false,
+      "bookmarked": false,
+      "hidden": false,
+      "previewTab": false
+    }
+  ],
+  "cacheDir": "C:\\Users\\pablo\\AppData\\Local\\skylot\\jadx\\cache\\projects\\UnCrackable-Level1-618d416b094f37bb3ecf412e41311f40",
+  "enableLiveReload": false,
+  "searchHistory": [],
+  "searchResourcesFilter": "$TEXT",
+  "searchResourcesSizeLimit": 0,
+  "pluginOptions": {}
+}

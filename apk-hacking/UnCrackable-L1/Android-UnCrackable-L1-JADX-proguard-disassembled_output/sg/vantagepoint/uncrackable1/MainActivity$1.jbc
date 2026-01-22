@@ -1,0 +1,25 @@
+version 1.6;
+class sg.vantagepoint.uncrackable1.MainActivity$1 extends java.lang.Object implements android.content.DialogInterface$OnClickListener [
+    InnerClasses {
+        class sg.vantagepoint.uncrackable1.MainActivity$1;
+    }
+    EnclosingMethod sg.vantagepoint.uncrackable1.MainActivity#void a(java.lang.String);
+] {
+    final sg.vantagepoint.uncrackable1.MainActivity a;
+
+    void <init>(sg.vantagepoint.uncrackable1.MainActivity) {
+            aload_0
+            aload_1
+            putfield #sg.vantagepoint.uncrackable1.MainActivity a
+            aload_0
+            invokespecial java.lang.Object#void <init>()
+            return
+    }
+
+    public void onClick(android.content.DialogInterface, int) {
+            iconst_0
+            invokestatic java.lang.System#void exit(int)
+            return
+    }
+
+}
