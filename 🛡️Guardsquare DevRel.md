@@ -112,25 +112,27 @@ Hack APK:
 
 * [https://www.youtube.com/watch?v=7kKl3nokZso](https://www.youtube.com/watch?v=7kKl3nokZso)   
 * [https://www.youtube.com/watch?v=JyaGLDM8Xhk](https://www.youtube.com/watch?v=JyaGLDM8Xhk)   
-* Jadx [https://www.youtube.com/watch?v=QlpDMmfOUmM](https://www.youtube.com/watch?v=QlpDMmfOUmM) 
-
+* **Jadx** [https://www.youtube.com/watch?v=QlpDMmfOUmM](https://www.youtube.com/watch?v=QlpDMmfOUmM) 
 
 # 🎓 What I learned
 
-* **Intermediate Representation**, or **IR**:   
+##  Intermediate Representation, or IR
+
   modern compilers like **Clang/LLVM** actually use a "temporary bytecode" internally during the building process.  
-  * **Front-End (Clang):** Turns your C++ into **LLVM Bitcode** (Intermediate Representation).\\  
+  * **Front-End (Clang):** Turns your C++ into **LLVM Bitcode** (Intermediate Representation)
   * **Optimizer:** Polishes that Bitcode to make it fast.  
   * **Back-End:** Finally turns that Bitcode into the **Machine Code** (.exe or ELF).  
   * **Crucially:** Usually, the developer "throws away" the Bitcode and only ships the Machine Code. Tools like **LibEBC** are for cases where the developer *chose* to embed that "recipe" inside the binary (common in Apple's ecosystem).
 
-* **Embedded Bitcode (EBC)**:   
+## Embedded Bitcode (EBC):
+
   When developers compile code for iOS (or sometimes Android native libraries), they don't always just produce the final machine code (the binary the phone runs). They can also embed LLVM Bitcode.  
   * Bitcode is an intermediate representation (**IR**)—it's halfway between source code and machine code.  
   * The Apple Use Case: Apple asks developers to upload Bitcode to the App Store so that Apple can re-compile and optimize the app for new iPhones without the developer needing to upload a new version.
 
+## Scoop 
 
-* **Scoop:** handle different java versions in Windows  
+handle different sofrtware versions in Windows. Useful for jdk versions
   * Install: 
 ```sh
 iwr -useb get.scoop.sh | iex
@@ -145,4 +147,20 @@ scoop reset openjdk8-redhat
 scoop reset openjdk25
 ```
 
+## JADX
 
+https://github.com/skylot/jadx
+A Dex to Java decompiler. Produces Java source code from Android Dex and Apk files 
+
+## ProGuard Assembler
+
+https://github.com/Guardsquare/proguard-assembler
+The disassembler can do 2 different things:
+* take `class` files and convert them to readable `jbc` (Java ByteCode) files, following the [ProGuard Assembly Language specification](https://github.com/Guardsquare/proguard-assembler/blob/master/docs/md/specification.md).
+* take readable `jbc` files and convert them to `class` files.
+
+## JADX vs ProGuard Assembler
+
+Decompilers like JADX are **guessing**. They try to reconstruct Java from bytecode, but if the code is heavily obfuscated (using techniques like _Control Flow Flattening_), JADX often fails, shows "/* error */", or produces misleading code
+- **JADX:** A high-level interpretation (can be wrong) but if succeeds it produces `.java` human readable files
+- **Assembler (.jbc):** A 1:1 representation of what the phone actually executes. It cannot be "broken" by obfuscation because it's just a list of raw instructions. But it's less human readable.
