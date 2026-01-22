@@ -113,6 +113,7 @@ Hack APK:
 * [https://www.youtube.com/watch?v=7kKl3nokZso](https://www.youtube.com/watch?v=7kKl3nokZso)   
 * [https://www.youtube.com/watch?v=JyaGLDM8Xhk](https://www.youtube.com/watch?v=JyaGLDM8Xhk)   
 * **Jadx** [https://www.youtube.com/watch?v=QlpDMmfOUmM](https://www.youtube.com/watch?v=QlpDMmfOUmM) 
+* Hacking Block Blast: https://www.youtube.com/watch?v=y4tMta9w6o0
 
 # 🎓 What I learned
 
