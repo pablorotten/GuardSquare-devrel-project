@@ -4,81 +4,97 @@ Offer:
 * [https://www.linkedin.com/jobs/view/4160833895/](https://www.linkedin.com/jobs/view/4160833895/)   
 * [https://job-boards.greenhouse.io/guardsquare/jobs/6575758](https://job-boards.greenhouse.io/guardsquare/jobs/6575758) 
 
-# 🪜 Steps
+# Low-Level Hacker with ProGuard open source tools
 
-## The "Low-Level" Hacker (ProGuardCORE)
+## 1. JADX vs proguard-assembler
 
-### ✅ 1\. Show the UnCrackable L1 code in JADX
+Solve Android UnCrackable L1 with *JADX* and *proguard-assembler*
+
+Download from here: https://mas.owasp.org/crackmes/
 
 Videos of people that already do this:
 
-Cringe  videos doing the UnCrackable L1:
+* Good video:
+  * [https://www.youtube.com/watch?v=F7CoOjjlR9U](https://www.youtube.com/watch?v=F7CoOjjlR9U)
+* Bad videos:
+  * [https://www.youtube.com/watch?v=FvJVtPfEJM4](https://www.youtube.com/watch?v=FvJVtPfEJM4)   
+  * [https://www.youtube.com/watch?v=R3\_KUP02mXk](https://www.youtube.com/watch?v=R3_KUP02mXk)   
+  * [https://www.youtube.com/watch?v=P6rNPkM2DdY](https://www.youtube.com/watch?v=P6rNPkM2DdY)   
+  * [https://www.youtube.com/watch?v=9VjkPuzSJNo](https://www.youtube.com/watch?v=9VjkPuzSJNo)   
+  * [https://www.youtube.com/watch?v=xRQVljerl0A](https://www.youtube.com/watch?v=xRQVljerl0A)
 
-* [https://www.youtube.com/watch?v=FvJVtPfEJM4](https://www.youtube.com/watch?v=FvJVtPfEJM4)   
-* [https://www.youtube.com/watch?v=R3\_KUP02mXk](https://www.youtube.com/watch?v=R3_KUP02mXk)   
-* [https://www.youtube.com/watch?v=P6rNPkM2DdY](https://www.youtube.com/watch?v=P6rNPkM2DdY)   
-* [https://www.youtube.com/watch?v=9VjkPuzSJNo](https://www.youtube.com/watch?v=9VjkPuzSJNo)   
-* [https://www.youtube.com/watch?v=xRQVljerl0A](https://www.youtube.com/watch?v=xRQVljerl0A) 
+### 1.1 UnCrackable with JADX
 
-Only good video:
+We are going to convert the `apk` into readable `java` code
 
-* [https://www.youtube.com/watch?v=F7CoOjjlR9U](https://www.youtube.com/watch?v=F7CoOjjlR9U) 
+* Open the apk with JADX: https://github.com/skylot/jadx
+* Show `MainActivity` and `a` classes and extract the relevant code
+* Create new project with relevant classes and generate the password
+* Test the password in the phone
 
-### 2\. Use ProGuard Assembler to "Disassemble" the class file into .jbc (readable assembly)
+### 1.2 UnCrackable with proguard-assembler
 
-1. Unzip `UnCrackable-Level1.apk`  
-2. Convert `classes.dex` into actual classes with `dex2jar`  
-	1. Download [https://github.com/pxb1988/dex2jar/releases](https://github.com/pxb1988/dex2jar/releases)  
-	2. `.\d2j-dex2jar.bat classes.dex`  
-	3. Generates `classes-dex2jar.jar`  
-3. Setup `proguard-assembler` [https://repo1.maven.org/maven2/com/guardsquare/proguard-assembler/1.0.0/](https://repo1.maven.org/maven2/com/guardsquare/proguard-assembler/1.0.0/)   
-	1. Build (use **jdk 8** with `scoop`): `./gradlew clean build
-	2. Find the .bat file: .\pga-cli.bat disassemble:  `C:\Users\pablo\DEV\Apps\proguard-assembler-master\pga-cli\build\install\proguard-assembler\bin\pga-cli.bat`
-4. Use the assembler
+We are going to convert the `apk` into not so readable but more powerful `jbc` code
+
+#### Setup *proguard-assembler*
+
+Download [proguard-assembler](https://github.com/Guardsquare/proguard-assembler/tree/master) from github, unzip the project and enter in the folder
+```sh
+cd proguard-assembler-master
 ```
-.\pga-cli.bat "C:\Users\pablo\DEV\projects\GuardSquare\apk-hacking\UnCrackable-L1\UnCrackable-Level1\classes-dex2jar.jar" -out "C:\Users\pablo\DEV\projects\GuardSquare\apk-hacking\UnCrackable-L1\UnCrackable-Level1\disassembled_output"
+Use jdk 21 (my specific case using windows and scoop)
+```sh
+scoop reset temurin21-jdk
+```
+Build the project 
+```sh
+.\gradlew clean build
+```
+Get the generated `assembler.jar`
+```
+proguard-assembler-master\pga-cli\build\libs\assembler.jar
 ```
 
-### 3\. Use **ProGuardCORE** to write a small Java script that "searches" for the AES decryption pattern automatically across any APK
+> [!TIP]
+> `assembler.jar` is the tool we need to use here
+> For the future, only this file is needed to run *proguard-assembler*
 
-# 💡 Main ideas
+#### Prepare the apk for `assembler.jar`
 
-### **Path 1: The "Low-Level" Hacker (ProGuardCORE)**
+*proguard-assembler* can't process an apk directly. It needs the `.jar` with all the `.class` inside to generate the `.jbc` files
 
-**Repositories:** `proguard-core` \+ `proguard-assembler` This is the most impressive "Senior" move. Since you already solved UnCrackable L1, you can show how a security professional analyzes it at the **Bytecode level**.
+1. Unzip `UnCrackable-Level1.apk`. It doesn't contain any `.jar` or `.class` files but it has `classes.dex`.
+2. Download [dex2jar](https://github.com/pxb1988/dex2jar/releases) and unzip  
+3. Run it against `classes.dex`  
+```sh
+.\d2j-dex2jar.bat classes.dex
+```
 
-* **The Video Idea:** *"Why JADX isn't enough: Manipulating Java Bytecode with ProGuardCORE."*  
-* **The Flow:**   
-  * 1\. Show the UnCrackable L1 code in JADX (what you've already done).   
-  * 2\. Use **ProGuard Assembler** to "Disassemble" the class file into `.jbc` (readable assembly).   
-  * 3\. Use **ProGuardCORE** to write a small Java script that "searches" for the AES decryption pattern automatically across any APK.  
-* **Why it wins:** You are showcasing their **core library**. This proves you understand the engine behind ProGuard and DexGuard.
+> [!TIP]
+> This generates `classes-dex2jar.jar` with all the  `.class` files.
 
----
+ Now it's ready to be used with *proguard-assembler*
 
-### **Path 2: The "Malware Researcher" (StrandHogg & Overlay)**
+#### Run *proguard-assembler*
 
-**Repositories:** `strandhogg-detection` or `android-overlay-detection` These are "Research" projects. They aren't tools for devs to use every day; they are **defensive techniques** against real-world Android malware (like banking trojans).
+⚠⚠⚠ WIP ⚠⚠⚠
+Explain how to run it, open the result and solve it
+⚠⚠⚠ WIP ⚠⚠⚠
 
-* **The Video Idea:** *"Defeating the Bank-Robber Malware: Detecting Android Overlay Attacks."*  
-* **The Flow:**  
-  1. Explain what an **Overlay Attack** is (a fake login screen on top of a real banking app).  
-  2. Show the **insecure** code (how easy it is for an app to be covered).  
-  3. Implement the code from the `android-overlay-detection` repo to "see" the attack happening.  
-* **Why it wins:** It shows you stay up-to-date with **Guardsquare’s Security Research Center**. This is exactly the kind of "Thought Leadership" a DevRel person needs.
+### 1.3 Differences between JADX and proguard-assembler
 
----
+⚠⚠⚠ WIP ⚠⚠⚠
+Explain why with JADX is easier but with proguard-assembler is more accurate
+⚠⚠⚠ WIP ⚠⚠⚠
 
-### **Path 3: The "DevSecOps" Specialist (GitHub Actions)**
+## 2. Modify the app with proguard-assembler
 
-**Repositories:** `appsweep-action` \+ `pivaa` Even if the AppSweep Web UI is paid, the **GitHub Action** often works for open-source repositories or has a "Community" usage tier for public repos.
+Let's do something next level. Let's directly modify the apk so no matter what string user inputs, it will always suceed
 
-* **The Video Idea:** *"Automating Security: Finding Vulnerabilities in Every Pull Request."*  
-* **The Flow:**  
-  1. Take the `pivaa` (Purposefully Insecure) app from their repo.  
-  2. Set up a GitHub Repo and add the `appsweep-action`.  
-  3. Show how the "Security Scan" automatically fails the build or highlights the `pivaa` vulnerabilities.  
-* **Why it wins:** It’s practical. It tells the viewer: *"I'll show you how to get enterprise-grade security for your open-source project for free."*
+## 3. Proguard/R8 vs Dexguard
+
+* Why is not Proguard/R8 enought?
+* How can theoretically Dexguard help us??
 
 # ❌ Discarded ideas:
 
@@ -149,11 +165,14 @@ scoop reset openjdk25
 ```
 
 ## JADX
+This converts `apk` --> `java` code
 
 https://github.com/skylot/jadx
 A Dex to Java decompiler. Produces Java source code from Android Dex and Apk files 
 
 ## ProGuard Assembler
+
+This converts  `.class` (could be a `jar` with multiple `.class` files) --> `jbc` and the opposite
 
 https://github.com/Guardsquare/proguard-assembler
 The disassembler can do 2 different things:
@@ -165,3 +184,13 @@ The disassembler can do 2 different things:
 Decompilers like JADX are **guessing**. They try to reconstruct Java from bytecode, but if the code is heavily obfuscated (using techniques like _Control Flow Flattening_), JADX often fails, shows "/* error */", or produces misleading code
 - **JADX:** A high-level interpretation (can be wrong) but if succeeds it produces `.java` human readable files
 - **Assembler (.jbc):** A 1:1 representation of what the phone actually executes. It cannot be "broken" by obfuscation because it's just a list of raw instructions. But it's less human readable.
+
+## classes.dex
+
+While standard Java compiles into .class files, Android uses its own optimized format for it's virtuakl (bytecode for the Dalvik or ART runtime).
+
+## dex2jar
+
+https://github.com/pxb1988/dex2jar/wiki/Faq
+
+Tool for converting Android's `.dex` format to Java's `.class` forma
