@@ -15,22 +15,22 @@ public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
         label3:
             goto label1
         catch java.lang.Exception label2 label3
-            astore_1
+            astore_2
             new java.lang.StringBuilder
             dup
             invokespecial java.lang.StringBuilder#void <init>()
-            astore_2
-            aload_2
+            astore_1
+            aload_1
             ldc "AES error:"
             invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
             pop
-            aload_2
             aload_1
+            aload_2
             invokevirtual java.lang.Exception#java.lang.String getMessage()
             invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
             pop
             ldc "CodeCheck"
-            aload_2
+            aload_1
             invokevirtual java.lang.StringBuilder#java.lang.String toString()
             invokestatic android.util.Log#int d(java.lang.String,java.lang.String)
             pop

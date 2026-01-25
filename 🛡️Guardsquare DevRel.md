@@ -1,4 +1,3 @@
-
 Offer: 
 
 * [https://www.linkedin.com/jobs/view/4160833895/](https://www.linkedin.com/jobs/view/4160833895/)   
@@ -13,15 +12,6 @@ Solve Android UnCrackable L1 with *JADX* and *proguard-assembler*
 Download from here: https://mas.owasp.org/crackmes/
 
 Videos of people that already do this:
-
-* Good video:
-  * [https://www.youtube.com/watch?v=F7CoOjjlR9U](https://www.youtube.com/watch?v=F7CoOjjlR9U)
-* Bad videos:
-  * [https://www.youtube.com/watch?v=FvJVtPfEJM4](https://www.youtube.com/watch?v=FvJVtPfEJM4)   
-  * [https://www.youtube.com/watch?v=R3\_KUP02mXk](https://www.youtube.com/watch?v=R3_KUP02mXk)   
-  * [https://www.youtube.com/watch?v=P6rNPkM2DdY](https://www.youtube.com/watch?v=P6rNPkM2DdY)   
-  * [https://www.youtube.com/watch?v=9VjkPuzSJNo](https://www.youtube.com/watch?v=9VjkPuzSJNo)   
-  * [https://www.youtube.com/watch?v=xRQVljerl0A](https://www.youtube.com/watch?v=xRQVljerl0A)
 
 ### 1.1 UnCrackable with JADX
 
@@ -77,9 +67,9 @@ proguard-assembler-master\pga-cli\build\libs\assembler.jar
 
 #### Run *proguard-assembler*
 
-⚠⚠⚠ WIP ⚠⚠⚠
-Explain how to run it, open the result and solve it
-⚠⚠⚠ WIP ⚠⚠⚠
+```bat
+java -jar .\assembler.jar .\classes-dex2jar.jar .\assembler-output
+```
 
 ### 1.3 Differences between JADX and proguard-assembler
 
@@ -96,7 +86,13 @@ Let's do something next level. Let's directly modify the apk so no matter what s
 * Why is not Proguard/R8 enought?
 * How can theoretically Dexguard help us??
 
-# ❌ Discarded ideas:
+# ☄️ Other Ideas for devrel portfolio
+
+* Hack with Apktool + Smali
+* Hack with Frida
+* Hack with Ghidra / IDA Pro
+
+## ❌ Discarded ideas:
 
 **Hacking a vanilla APK vs Proguard APK:** 
 
@@ -113,7 +109,7 @@ Let's do something next level. Let's directly modify the apk so no matter what s
 * Hack OWASP MASTG [Android UnCrackable L](https://mas.owasp.org/crackmes/Android#android-uncrackable-l1) and solve the problem. Then use AppSweep with the apk and check if it finds the issue. Make a video about that  
 * **❌ Problem:**It’s paid 💵and expensive. So I can’t use it. Mailed them to ask for a trial version but they said no.
 
-# 📽️ Relevant videos
+## 📽️ Relevant videos
 
 Proguard explanations:
 
@@ -131,21 +127,33 @@ Hack APK:
 * **Jadx** [https://www.youtube.com/watch?v=QlpDMmfOUmM](https://www.youtube.com/watch?v=QlpDMmfOUmM) 
 * Hacking Block Blast: https://www.youtube.com/watch?v=y4tMta9w6o0
 
+JADX
+
+* Good video:
+  * [https://www.youtube.com/watch?v=F7CoOjjlR9U](https://www.youtube.com/watch?v=F7CoOjjlR9U)
+* Bad videos:
+  * [https://www.youtube.com/watch?v=FvJVtPfEJM4](https://www.youtube.com/watch?v=FvJVtPfEJM4)   
+  * [https://www.youtube.com/watch?v=R3\_KUP02mXk](https://www.youtube.com/watch?v=R3_KUP02mXk)   
+  * [https://www.youtube.com/watch?v=P6rNPkM2DdY](https://www.youtube.com/watch?v=P6rNPkM2DdY)   
+  * [https://www.youtube.com/watch?v=9VjkPuzSJNo](https://www.youtube.com/watch?v=9VjkPuzSJNo)   
+  * [https://www.youtube.com/watch?v=xRQVljerl0A](https://www.youtube.com/watch?v=xRQVljerl0A)
+
+
 # 🎓 What I learned
 
 ##  Intermediate Representation, or IR
 
-  modern compilers like **Clang/LLVM** actually use a "temporary bytecode" internally during the building process.  
-  * **Front-End (Clang):** Turns your C++ into **LLVM Bitcode** (Intermediate Representation)
-  * **Optimizer:** Polishes that Bitcode to make it fast.  
-  * **Back-End:** Finally turns that Bitcode into the **Machine Code** (.exe or ELF).  
-  * **Crucially:** Usually, the developer "throws away" the Bitcode and only ships the Machine Code. Tools like **LibEBC** are for cases where the developer *chose* to embed that "recipe" inside the binary (common in Apple's ecosystem).
+modern compilers like **Clang/LLVM** actually use a "temporary bytecode" internally during the building process.  
+* **Front-End (Clang):** Turns your C++ into **LLVM Bitcode** (Intermediate Representation)
+* **Optimizer:** Polishes that Bitcode to make it fast.  
+* **Back-End:** Finally turns that Bitcode into the **Machine Code** (.exe or ELF).  
+* **Crucially:** Usually, the developer "throws away" the Bitcode and only ships the Machine Code. Tools like **LibEBC** are for cases where the developer *chose* to embed that "recipe" inside the binary (common in Apple's ecosystem).
 
 ## Embedded Bitcode (EBC):
 
-  When developers compile code for iOS (or sometimes Android native libraries), they don't always just produce the final machine code (the binary the phone runs). They can also embed LLVM Bitcode.  
-  * Bitcode is an intermediate representation (**IR**)—it's halfway between source code and machine code.  
-  * The Apple Use Case: Apple asks developers to upload Bitcode to the App Store so that Apple can re-compile and optimize the app for new iPhones without the developer needing to upload a new version.
+When developers compile code for iOS (or sometimes Android native libraries), they don't always just produce the final machine code (the binary the phone runs). They can also embed LLVM Bitcode.  
+* Bitcode is an intermediate representation (**IR**)—it's halfway between source code and machine code.  
+* The Apple Use Case: Apple asks developers to upload Bitcode to the App Store so that Apple can re-compile and optimize the app for new iPhones without the developer needing to upload a new version.
 
 ## Scoop 
 
@@ -165,6 +173,7 @@ scoop reset openjdk25
 ```
 
 ## JADX
+
 This converts `apk` --> `java` code
 
 https://github.com/skylot/jadx
@@ -194,3 +203,43 @@ While standard Java compiles into .class files, Android uses its own optimized f
 https://github.com/pxb1988/dex2jar/wiki/Faq
 
 Tool for converting Android's `.dex` format to Java's `.class` forma
+
+## Decomplie a .class to bytecode with javap
+
+```sh
+javap -c -classpath .\UnCrackable-Level1-classes-dex2jar.jar sg.vantagepoint.uncrackable1.MainActivity > MainActivity.jbc
+```
+
+> [!IMPORTANT]  
+> TODO: Explain differences with proguard assembler: "Here is the breakdown of why the ProGuard Assembler output is "better" for your specific hacking and reconstruction goal..."
+
+
+## Apktool + Smali
+
+The Industry Standard for Patching.
+
+If a hacker wanted to do exactly what you are doing—rebuild and resign the APK—they would almost certainly use Apktool.
+
+How it works: Apktool decompiles the APK into Smali files. Smali is the "standard" assembly language for Android's Dalvik/ART virtual machine.
+
+Why it's preferred: It's universal. Every Android app has Smali, but not every app was built using ProGuard in a way that makes JBC (Java Bytecode) extraction easy. Most "cracked" apps you find on the internet were made by editing Smali code.
+
+The Workflow: Apktool Decompile -> Edit .smali files -> Apktool Build -> uber-apk-signer.
+
+## Frida
+
+The Professional "Surgical" Tool.
+
+A professional "Red Team" hacker often doesn't even bother rebuilding the APK. They use Frida, which is a dynamic instrumentation toolkit.
+
+The "Magic" of Frida: Instead of changing the code on disk, Frida "injects" JavaScript into the app while it's running on the phone.
+
+The Hack: A hacker would write 5 lines of JavaScript to say: "Whenever the method sg.vantagepoint.a.c.a() is called, don't actually run it—just return false (Not Rooted)."
+
+Why it's better: It bypasses Signature Verification. Since the hacker never modified the APK file itself, the app's internal security checks won't notice that anything has changed.
+
+## Ghidra / IDA Pro
+
+The "Heavyweight" Analysis.
+
+For apps with Native Code (.so files written in C++), hackers use these $10,000+ industry-standard tools (though Ghidra is free from the NSA). These are used when the "Secret Key" isn't in Java, but hidden deep in the machine code of the phone's processor.
