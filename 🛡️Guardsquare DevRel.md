@@ -134,6 +134,7 @@ So we can conclude that:
 * Decryption method: `AES/ECB/PKCS7Padding`
 
 We can go to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',false,true)AES_Decrypt(%7B'option':'Hex','string':'8d127684cbc37c17616d806cf50473cc'%7D,%7B'option':'Hex','string':''%7D,'ECB','Raw','Raw',%7B'option':'Hex','string':''%7D,%7B'option':'Hex','string':''%7D)&input=NVVKaUZjdGJtZ2JEb0xYbXBMMTJta25vOEhUNEx2OGRsYXQ4RnhSMkdPYz0) and do the decryption:
+
 ![alt text](images/cyberchef.png)
 
 ### 1.3 Conclusion
