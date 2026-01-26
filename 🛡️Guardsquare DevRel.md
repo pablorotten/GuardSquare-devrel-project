@@ -65,13 +65,88 @@ proguard-assembler-master\pga-cli\build\libs\assembler.jar
 
  Now it's ready to be used with *proguard-assembler*
 
-#### Run *proguard-assembler*
+#### Run *proguard-assembler* and solve the challenge
 
 ```bat
 java -jar .\assembler.jar .\classes-dex2jar.jar .\assembler-output
 ```
 
-### 1.3 Differences between JADX and proguard-assembler
+This will decompile the app into `jbc` (Java ByteCode) files.
+
+Taking a look to those `jbc` files we can figure out what the app does:
+
+**MainActivity.jbc**
+```
+public void verify(android.view.View) {
+  ...
+  invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
+  ifeq label1
+  aload_2
+  ldc "Success!"
+  invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
+  ldc "This is the correct secret."
+```
+
+Here we can see that there's a comparison (`uncrackable1.a#boolean `) between 2 values
+
+**uncrackable1.a**
+```
+public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
+
+    public static boolean a(java.lang.String) {
+            ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="
+            iconst_0
+            invokestatic android.util.Base64#byte[] decode(java.lang.String,int)
+            astore_1
+        label2:
+            ldc "8d127684cbc37c17616d806cf50473cc`"
+            invokestatic #byte8d127684cbc37c17616d806cf50473cc[] b(java.lang.String)
+            aload_1
+            invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[])
+            ...
+```
+Here we can find 2 suspicious strings and a method call with tem:
+* `5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc=`. A `String` that is decoded with `Base64` to `byte`
+* `8d127684cbc37c17616d806cf50473cc` An Hexadecimal that is converted with `b()` to `byte`
+* Method sg.vantagepoint.a.a that asks for 2 `byte`
+
+**vantagepoint.a**
+```
+public class sg.vantagepoint.a.a extends java.lang.Object {
+
+    public static byte[] a(byte[], byte[]) {
+            new javax.crypto.spec.SecretKeySpec
+            dup
+            aload_0
+            ldc "AES/ECB/PKCS7Padding"
+            invokespecial javax.crypto.spec.SecretKeySpec#void <init>(byte[],java.lang.String)
+            astore_0
+            ldc "AES"
+            invokestatic javax.crypto.Cipher#javax.crypto.Cipher getInstance(java.lang.String)
+```
+
+Here's the dought 🍪!
+This method is using `AES` encryption with `ECB` mode and `PKCS7Padding`. The first parameter is the key and the second parameter is the data to decrypt.
+
+So we can conclude that:
+* Password to decrypt: `5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc=` converted to `byte` with `Base64` decoding
+* AES key: `8d127684cbc37c17616d806cf50473cc` converted to `byte` from Hexadecimal
+* Decryption method: `AES/ECB/PKCS7Padding`
+
+We can go to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',false,true)AES_Decrypt(%7B'option':'Hex','string':'8d127684cbc37c17616d806cf50473cc'%7D,%7B'option':'Hex','string':''%7D,'ECB','Raw','Raw',%7B'option':'Hex','string':''%7D,%7B'option':'Hex','string':''%7D)&input=NVVKaUZjdGJtZ2JEb0xYbXBMMTJta25vOEhUNEx2OGRsYXQ4RnhSMkdPYz0) and do the decryption:
+![alt text](images/cyberchef.png)
+
+### 1.3 Conclusion
+
+#### How to fix this
+
+* String Encryption (DexGuard/ProGuard): This would encrypt the key itself and only decrypt it in memory for a split second when needed. In your .jbc file, you wouldn't see 8d12..., you would see a scrambled mess that only unscrambles at runtime.
+
+* Android Keystore: Instead of putting the key in the code, the app should generate a key inside the phone's dedicated security chip (the TEE - Trusted Execution Environment). The code never actually "sees" the key; it just asks the chip to "please decrypt this for me."
+
+* Native Code (C/C++): Moving the key into a .so file (JNI) makes it slightly harder to find than in a standard .java or .jbc file, though a determined hacker can still find it using tools like Ghidra.
+
+#### JADX vs proguard-assembler
 
 ⚠⚠⚠ WIP ⚠⚠⚠
 Explain why with JADX is easier but with proguard-assembler is more accurate
@@ -91,7 +166,7 @@ Let's do something next level. Let's directly modify the apk so no matter what s
 * Hack with Apktool + Smali
 * Hack with Frida
 * Hack with Ghidra / IDA Pro
-
+  
 ## ❌ Discarded ideas:
 
 **Hacking a vanilla APK vs Proguard APK:** 

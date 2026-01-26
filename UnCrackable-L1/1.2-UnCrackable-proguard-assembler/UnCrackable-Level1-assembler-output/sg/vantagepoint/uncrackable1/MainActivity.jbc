@@ -85,6 +85,7 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
             invokevirtual android.app.AlertDialog$Builder#android.app.AlertDialog create()
             astore_2
             aload_1
+            // 1. Boolean to compare
             invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
             ifeq label1
             aload_2
