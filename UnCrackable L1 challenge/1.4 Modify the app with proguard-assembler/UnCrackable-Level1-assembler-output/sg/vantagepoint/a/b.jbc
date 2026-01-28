@@ -1,0 +1,19 @@
+version 1.6;
+public class sg.vantagepoint.a.b extends java.lang.Object {
+
+    public static boolean a(android.content.Context) {
+            aload_0
+            invokevirtual android.content.Context#android.content.Context getApplicationContext()
+            invokevirtual android.content.Context#android.content.pm.ApplicationInfo getApplicationInfo()
+            getfield android.content.pm.ApplicationInfo#int flags
+            iconst_2
+            iand
+            ifeq label1
+            iconst_1
+            ireturn
+        label1:
+            iconst_0
+            ireturn
+    }
+
+}

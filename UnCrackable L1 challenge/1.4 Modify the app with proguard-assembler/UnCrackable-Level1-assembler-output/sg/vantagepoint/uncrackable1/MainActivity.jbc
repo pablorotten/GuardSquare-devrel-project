@@ -1,0 +1,122 @@
+version 1.6;
+public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activity [
+    InnerClasses {
+        class sg.vantagepoint.uncrackable1.MainActivity$1;
+        class sg.vantagepoint.uncrackable1.MainActivity$2;
+    }
+] {
+
+    public void <init>() {
+            aload_0
+            invokespecial android.app.Activity#void <init>()
+            return
+    }
+
+    private void a(java.lang.String) {
+            new android.app.AlertDialog$Builder
+            dup
+            aload_0
+            invokespecial android.app.AlertDialog$Builder#void <init>(android.content.Context)
+            invokevirtual android.app.AlertDialog$Builder#android.app.AlertDialog create()
+            astore_2
+            aload_2
+            aload_1
+            invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
+            aload_2
+            ldc "This is unacceptable. The app is now going to exit."
+            invokevirtual android.app.AlertDialog#void setMessage(java.lang.CharSequence)
+            aload_2
+            bipush -3
+            ldc "OK"
+            new sg.vantagepoint.uncrackable1.MainActivity$1
+            dup
+            aload_0
+            invokespecial sg.vantagepoint.uncrackable1.MainActivity$1#void <init>(sg.vantagepoint.uncrackable1.MainActivity)
+            invokevirtual android.app.AlertDialog#void setButton(int,java.lang.CharSequence,android.content.DialogInterface$OnClickListener)
+            aload_2
+            iconst_0
+            invokevirtual android.app.AlertDialog#void setCancelable(boolean)
+            aload_2
+            invokevirtual android.app.AlertDialog#void show()
+            return
+    }
+
+    protected void onCreate(android.os.Bundle) {
+            invokestatic sg.vantagepoint.a.c#boolean a()
+            ifne label1
+            invokestatic sg.vantagepoint.a.c#boolean b()
+            ifne label1
+            invokestatic sg.vantagepoint.a.c#boolean c()
+            ifeq label2
+        label1:
+            aload_0
+            ldc "Root detected!"
+            invokespecial #void a(java.lang.String)
+        label2:
+            aload_0
+            invokevirtual #android.content.Context getApplicationContext()
+            invokestatic sg.vantagepoint.a.b#boolean a(android.content.Context)
+            ifeq label3
+            aload_0
+            ldc "App is debuggable!"
+            invokespecial #void a(java.lang.String)
+        label3:
+            aload_0
+            aload_1
+            invokespecial android.app.Activity#void onCreate(android.os.Bundle)
+            aload_0
+            ldc 2130903040
+            invokevirtual #void setContentView(int)
+            return
+    }
+
+    public void verify(android.view.View) {
+            aload_0
+            ldc 2130837505
+            invokevirtual #android.view.View findViewById(int)
+            checkcast android.widget.EditText
+            invokevirtual android.widget.EditText#android.text.Editable getText()
+            invokevirtual java.lang.Object#java.lang.String toString()
+            astore_1
+            new android.app.AlertDialog$Builder
+            dup
+            aload_0
+            invokespecial android.app.AlertDialog$Builder#void <init>(android.content.Context)
+            invokevirtual android.app.AlertDialog$Builder#android.app.AlertDialog create()
+            astore_2
+            aload_1
+            // 1. Boolean to compare
+            invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
+            ifeq label1
+            aload_2
+            ldc "Success!"
+            invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
+            ldc "This is the correct secret."
+            astore_1
+        label3:
+            aload_2
+            aload_1
+            invokevirtual android.app.AlertDialog#void setMessage(java.lang.CharSequence)
+            goto label2
+        label1:
+            aload_2
+            ldc "Nope..."
+            invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
+            ldc "That's not it. Try again."
+            astore_1
+            goto label3
+        label2:
+            aload_2
+            bipush -3
+            ldc "OK"
+            new sg.vantagepoint.uncrackable1.MainActivity$2
+            dup
+            aload_0
+            invokespecial sg.vantagepoint.uncrackable1.MainActivity$2#void <init>(sg.vantagepoint.uncrackable1.MainActivity)
+            invokevirtual android.app.AlertDialog#void setButton(int,java.lang.CharSequence,android.content.DialogInterface$OnClickListener)
+            aload_2
+            invokevirtual android.app.AlertDialog#void show()
+            return
+    }
+
+}
