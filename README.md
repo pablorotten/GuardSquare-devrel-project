@@ -37,7 +37,7 @@ proguard-assembler-master\pga-cli\build\libs\assembler.jar
 > [!TIP]
 > `assembler.jar` is the tool. Only this file is needed to run *proguard-assembler*
 
-### 1.2 Prepare the apk for `assembler.jar`
+### 1.2 Apk dex to jar conversion
 
 *proguard-assembler* can't process an apk directly. It needs the `.jar` with all the `.class` inside to generate the `.jbc` files
 
