@@ -27,7 +27,7 @@ scoop reset temurin21-jdk
 ```
 Build the project 
 ```sh
-.\gradlew clean build
+./gradlew clean build
 ```
 Get the generated `assembler.jar`
 ```
@@ -45,7 +45,7 @@ proguard-assembler-master\pga-cli\build\libs\assembler.jar
 2. Download [dex2jar](https://github.com/pxb1988/dex2jar/releases) and unzip  
 3. Run it against `classes.dex`  
 ```sh
-.\d2j-dex2jar.bat classes.dex
+./d2j-dex2jar.bat classes.dex
 ```
 
 > [!TIP]
@@ -147,7 +147,7 @@ java -jar ./assembler.jar ./android.jar ./UnCrackable-Level1-patched ./UnCrackab
 ```
 * Build the dex file with dex-tools
 ```sh
- C:\...\Apps\dex-tools-v2.4\d2j-jar2dex.bat .\UnCrackable-Level1-patched.jar
+ C:\...\Apps\dex-tools-v2.4\d2j-jar2dex.bat ./UnCrackable-Level1-patched.jar
 ```
 It produces `UnCrackable-Level1-patched-jar2dex.dex`
 * Rename `UnCrackable-Level1-patched-jar2dex.dex` to `classes.dex` and drag it into `UnCrackable-Level1-patched.apk`.
@@ -306,7 +306,7 @@ Tool for converting Android's `.dex` format to Java's `.class` forma
 ## Decomplie a .class to bytecode with javap
 
 ```sh
-javap -c -classpath .\UnCrackable-Level1-classes-dex2jar.jar sg.vantagepoint.uncrackable1.MainActivity > MainActivity.jbc
+javap -c -classpath ./UnCrackable-Level1-classes-dex2jar.jar sg.vantagepoint.uncrackable1.MainActivity > MainActivity.jbc
 ```
 
 > [!IMPORTANT]  
