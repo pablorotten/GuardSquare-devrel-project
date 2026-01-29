@@ -86,8 +86,8 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
             astore_2
             aload_1
             invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
-            // ifeq label1 <-- skip check
-            goto label3 // Force go to success scenario            aload_2
+            // ifeq label1
+            aload_2
             ldc "Success!"
             invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
             ldc "This is the correct secret."

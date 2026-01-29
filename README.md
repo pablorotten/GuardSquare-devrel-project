@@ -136,7 +136,6 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
         ...
         invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
         // ifeq label1 <-- skip check
-        goto label3 // Force go to success scenario
         aload_2
         ldc "Success!"
         ...  
@@ -148,7 +147,7 @@ java -jar ./assembler.jar ./android.jar ./UnCrackable-Level1-patched ./UnCrackab
 ```
 * Build the dex file with dex-tools
 ```sh
-./d2j-jar2dex.bat ./UnCrackable-Level1-patched.jar
+ C:\...\Apps\dex-tools-v2.4\d2j-jar2dex.bat .\UnCrackable-Level1-patched.jar
 ```
 It produces `UnCrackable-Level1-patched-jar2dex.dex`
 * Rename `UnCrackable-Level1-patched-jar2dex.dex` to `classes.dex` and drag it into `UnCrackable-Level1-patched.apk`.
