@@ -61,6 +61,9 @@ java -jar ./assembler.jar ./classes-dex2jar.jar ./assembler-output2
 
 This will decompile the app into `jbc` (Java ByteCode) files.
 
+> [!IMPORTANT]  
+> JBC is an internal format created by Guardsquare. The goal of JBC is to be a human-readable representation of the official Java Virtual Machine specification (JVMS). While the content inside the file represents standard Java Bytecode that follows the JVMS, the specific syntax and the .jbc extension are unique to the ProGuard Assembler.
+
 Taking a look to those `jbc` files we can figure out what the app does:
 
 **MainActivity.jbc**
@@ -127,7 +130,7 @@ We can go to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A
 
 ### 1.4 Modify the app with proguard-assembler
 
-* Take the output folder from proguard-assembler generated in the step begore and modify `MainActivity.jbc` to skip the verification and always show "Success!"
+* Take the output folder from proguard-assembler generated in the step before and modify `MainActivity.jbc` to skip the verification `ifeq label1` and always shows "Success!"
 ```jbc
 version 1.6;
 public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activity [
@@ -167,13 +170,18 @@ java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
 
 ### 1.6 Conclusion
 
-⚠⚠⚠ WIP ⚠⚠⚠
-* `proguard-assembler` is not meant to do this, there're better tools like `jadx` that convert `apk` --> `java` code or `apktool + smali` that can patch the `smali` code directly
-* The goal is showcase at what level `proguard-assembler` works since this tool is used internally by Guardsquare products
-* Other Guardsquare tools like Dexguard use more advanced techniques to protect the code so using them would make the challenge impossible to solve with `proguard-assembler`
-* Why is not Proguard/R8 enought?
-* How can theoretically Dexguard help us??
-⚠⚠⚠ WIP ⚠⚠⚠
+The goal of this challenge is to showcase what `proguard-assembler` is capable to do
+* It can dissasemble `.class` files into accurate but readable `jbc` files
+* It can reassemble modified `jbc` files back into valid `.class` files
+* `jbc` files are human-readable representation of the official Java Virtual Machine specification:
+  * It's designed to be a 1:1 human-readable map of the ProGuard Core library
+  * Can represent every single nuance of a .class file—including complex attributes and stack map frames—without the "baggage" or limitations of older community tools.
+  * As specialized in code hardening, they need a custom "assembly language" to write test cases for new obfuscation techniques.
+* An engineer can use `proguard-assembler` to  quickly analyze and patch a compiled Java application. For example create a "minimal reproducible case" of a .class that is not properly obfuscated by Proguard/R8.
+* `proguard-assembler` can be integrated into another tool as a library. It's used internally into `proguard-code` to read and write bytecode. Probably Dexguard uses it too.
+* Of course, `proguard-assembler` is not the best tool to solve this challenge.
+  * For understanding the code, `jadx` converts `apk` into `java` code. But it can be broken by obfuscation techniques like Control Flow Flattening. Meanwhile, `proguard-assembler` generated `jbc` files are 1:1 representation of what the phone executes. 
+  * For patching the apk we could have used `apktool + smali`.
 
 # ☄️ Other Ideas for devrel portfolio
 
@@ -348,3 +356,7 @@ For apps with Native Code (.so files written in C++), hackers use these $10,000+
 https://github.com/patrickfav/uber-apk-signer
 
 A tool that helps to sign, zip aligning and verifying APKs.
+
+## JBC
+
+It's an internal format created by Guardsquare. While the content inside the file represents standard Java Bytecode that follows the official Java Virtual Machine Specification (JVMS), the specific syntax and the .jbc extension are unique to the ProGuard Assembler.
