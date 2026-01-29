@@ -80,7 +80,7 @@ public void verify(android.view.View) {
 
 Here we can see that there's a comparison (`uncrackable1.a#boolean `) between 2 values
 
-**uncrackable1.a**
+**uncrackable1.a.jbc**
 ```
 public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
 
@@ -101,7 +101,7 @@ Here we can find 2 suspicious strings and a method call with tem:
 * `8d127684cbc37c17616d806cf50473cc` An Hexadecimal that is converted with `b()` to `byte`
 * Method sg.vantagepoint.a.a that asks for 2 `byte`
 
-**vantagepoint.a**
+**vantagepoint.a.jbc**
 ```
 public class sg.vantagepoint.a.a extends java.lang.Object {
 
