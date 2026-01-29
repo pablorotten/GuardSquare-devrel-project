@@ -127,9 +127,36 @@ We can go to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A
 
 ### 1.4 Modify the app with proguard-assembler
 
-⚠⚠⚠ WIP ⚠⚠⚠
-Let's do something next level: modify the apk so no matter what string user inputs, it will always suceed
-⚠⚠⚠ WIP ⚠⚠⚠
+* Take the output folder from proguard-assembler generated in the step begore and modify `MainActivity.jbc` to skip the verification and always show "Success!"
+```jbc
+version 1.6;
+public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activity [
+    ...
+    public void verify(android.view.View) {
+        ...
+        invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
+        // ifeq label1 <-- skip check
+        goto label3 // Force go to success scenario
+        aload_2
+        ldc "Success!"
+        ...  
+```
+* Download an `android.jar` from here: https://github.com/Sable/android-platforms 
+* Rebuild the .jar with **proguard-assembler**
+```sh
+java -jar ./assembler.jar ./android.jar ./UnCrackable-Level1-patched ./UnCrackable-Level1-patched.jar
+```
+* Build the dex file with dex-tools
+```sh
+./d2j-jar2dex.bat ./UnCrackable-Level1-patched.jar
+```
+It produces `UnCrackable-Level1-patched-jar2dex.dex`
+* Rename `UnCrackable-Level1-patched-jar2dex.dex` to `classes.dex` and drag it into `UnCrackable-Level1-patched.apk`.
+* Sign the apk with [uber-apk-signer](https://github.com/patrickfav/uber-apk-signer)
+```sh
+java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
+```
+* Install the app
 
 ### 1.5 How to fix this
 
@@ -316,3 +343,9 @@ Why it's better: It bypasses Signature Verification. Since the hacker never modi
 The "Heavyweight" Analysis.
 
 For apps with Native Code (.so files written in C++), hackers use these $10,000+ industry-standard tools (though Ghidra is free from the NSA). These are used when the "Secret Key" isn't in Java, but hidden deep in the machine code of the phone's processor.
+
+## Uber APK Signer
+
+https://github.com/patrickfav/uber-apk-signer
+
+A tool that helps to sign, zip aligning and verifying APKs.

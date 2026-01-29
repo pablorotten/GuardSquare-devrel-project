@@ -1,7 +1,6 @@
 version 1.6;
 public class sg.vantagepoint.a.a extends java.lang.Object {
 
-    //4. Decrypt using "AES/ECB/PKCS7Padding" method
     public static byte[] a(byte[], byte[]) {
             new javax.crypto.spec.SecretKeySpec
             dup

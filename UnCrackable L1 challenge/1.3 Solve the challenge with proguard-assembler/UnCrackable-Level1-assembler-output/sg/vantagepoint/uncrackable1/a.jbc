@@ -2,15 +2,13 @@ version 1.6;
 public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
 
     public static boolean a(java.lang.String) {
-            // 2. Password to decrypt converted into byte with Base64 
             ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="
             iconst_0
             invokestatic android.util.Base64#byte[] decode(java.lang.String,int)
             astore_1
         label2:
-            // 3. The AES Key converted to byte with hex
             ldc "8d127684cbc37c17616d806cf50473cc"
-            invokestatic #byte8d127684cbc37c17616d806cf50473cc[] b(java.lang.String)
+            invokestatic #byte[] b(java.lang.String)
             aload_1
             invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[])
             astore_1

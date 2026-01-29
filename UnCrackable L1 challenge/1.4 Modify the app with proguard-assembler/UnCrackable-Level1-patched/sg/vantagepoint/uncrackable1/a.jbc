@@ -1,0 +1,93 @@
+version 1.6;
+public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
+
+    public static boolean a(java.lang.String) {
+            ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="
+            iconst_0
+            invokestatic android.util.Base64#byte[] decode(java.lang.String,int)
+            astore_1
+        label2:
+            ldc "8d127684cbc37c17616d806cf50473cc"
+            invokestatic #byte[] b(java.lang.String)
+            aload_1
+            invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[])
+            astore_1
+        label3:
+            goto label1
+        catch java.lang.Exception label2 label3
+            astore_2
+            new java.lang.StringBuilder
+            dup
+            invokespecial java.lang.StringBuilder#void <init>()
+            astore_1
+            aload_1
+            ldc "AES error:"
+            invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
+            pop
+            aload_1
+            aload_2
+            invokevirtual java.lang.Exception#java.lang.String getMessage()
+            invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
+            pop
+            ldc "CodeCheck"
+            aload_1
+            invokevirtual java.lang.StringBuilder#java.lang.String toString()
+            invokestatic android.util.Log#int d(java.lang.String,java.lang.String)
+            pop
+            iconst_0
+            newarray byte
+            astore_1
+        label1:
+            aload_0
+            new java.lang.String
+            dup
+            aload_1
+            invokespecial java.lang.String#void <init>(byte[])
+            invokevirtual java.lang.String#boolean equals(java.lang.Object)
+            ireturn
+    }
+
+    public static byte[] b(java.lang.String) {
+            aload_0
+            invokevirtual java.lang.String#int length()
+            istore_2
+            iload_2
+            iconst_2
+            idiv
+            newarray byte
+            astore_3
+            iconst_0
+            istore_1
+        label2:
+            iload_1
+            iload_2
+            if_icmpge label1
+            aload_3
+            iload_1
+            iconst_2
+            idiv
+            aload_0
+            iload_1
+            invokevirtual java.lang.String#char charAt(int)
+            bipush 16
+            invokestatic java.lang.Character#int digit(char,int)
+            iconst_4
+            ishl
+            aload_0
+            iload_1
+            iconst_1
+            iadd
+            invokevirtual java.lang.String#char charAt(int)
+            bipush 16
+            invokestatic java.lang.Character#int digit(char,int)
+            iadd
+            i2b
+            bastore
+            iinc 1 2
+            goto label2
+        label1:
+            aload_3
+            areturn
+    }
+
+}
