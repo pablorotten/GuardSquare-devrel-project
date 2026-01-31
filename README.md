@@ -21,9 +21,9 @@ Download [proguard-assembler](https://github.com/Guardsquare/proguard-assembler/
 ```sh
 cd proguard-assembler-master
 ```
-Use jdk 21 (my specific case using windows and scoop)
+Use jdk 8 to compile proguard-assembler (my specific case using windows and scoop)
 ```sh
-scoop reset temurin21-jdk
+scoop reset openjdk8-redhat
 ```
 Build the project 
 ```sh
@@ -128,7 +128,44 @@ We can go to [CyberChef](https://gchq.github.io/CyberChef/#recipe=From_Base64('A
 
 ![alt text](images/cyberchef.png)
 
-### 1.4 Modify the app with proguard-assembler
+### 1.4 Why not use javap?
+
+Why all this hustle? We could have used `javap` to decompile the `.class` files directly
+
+```sh
+javap -c -p -v ./MainActivity.class > MainActivity.txt
+```
+
+**javap output**
+```
+public void verify(android.view.View);
+  descriptor: (Landroid/view/View;)V
+  flags: (0x0001) ACC_PUBLIC
+  Code:
+    stack=6, locals=3, args_size=2
+        0: aload_0
+        1: ldc           #89                 // int 2130837505
+        3: invokevirtual #93                 // Method findViewById:(I)Landroid/view/View;
+        6: checkcast     #95                 // class android/widget/EditText
+        9: invokevirtual #99                 // Method android/widget/EditText.getText:()Landroid/text/Editable;
+      12: invokevirtual #105                // Method java/lang/Object.toString:()Ljava/lang/String;
+      15: astore_1
+```
+**jbc**
+```
+public void verify(android.view.View) {
+    aload_0
+    ldc 2130837505
+    invokevirtual #android.view.View findViewById(int)
+    checkcast android.widget.EditText
+    invokevirtual android.widget.EditText#android.text.Editable getText()
+    invokevirtual java.lang.Object#java.lang.String toString()
+    astore_1
+```
+
+We'll see why later...
+
+### 1.5 Modify the app with proguard-assembler
 
 * Take the output folder from proguard-assembler generated in the step before and modify `MainActivity.jbc` to skip the verification `ifeq label1` and always shows "Success!"
 ```jbc
@@ -160,7 +197,12 @@ java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
 ```
 * Install the app
 
-### 1.5 How to fix this
+### 1.6 Why not use javap? II
+
+
+
+
+### 1.7 How to fix this
 
 * String Encryption (DexGuard/ProGuard): This would encrypt the key itself and only decrypt it in memory for a split second when needed. In your .jbc file, you wouldn't see 8d12..., you would see a scrambled mess that only unscrambles at runtime.
 
@@ -168,7 +210,7 @@ java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
 
 * Native Code (C/C++): Moving the key into a .so file (JNI) makes it slightly harder to find than in a standard .java or .jbc file, though a determined hacker can still find it using tools like Ghidra.
 
-### 1.6 Conclusion
+### 1.8 Conclusion
 
 The goal of this challenge is to showcase what `proguard-assembler` is capable to do
 * It can dissasemble `.class` files into accurate but readable `jbc` files
@@ -221,7 +263,6 @@ Proguard explanations:
 Hack APK:
 
 * [https://www.youtube.com/watch?v=7kKl3nokZso](https://www.youtube.com/watch?v=7kKl3nokZso)   
-* [https://www.youtube.com/watch?v=JyaGLDM8Xhk](https://www.youtube.com/watch?v=JyaGLDM8Xhk)   
 * **Jadx** [https://www.youtube.com/watch?v=QlpDMmfOUmM](https://www.youtube.com/watch?v=QlpDMmfOUmM) 
 * Hacking Block Blast: https://www.youtube.com/watch?v=y4tMta9w6o0
 

@@ -1,0 +1,253 @@
+Classfile /C:/Users/pablo/DEV/projects/GuardSquare/UnCrackable L1 challenge/1.5 Compare with javap output/MainActivity.class
+  Last modified Jan 24, 2026; size 1831 bytes
+  SHA-256 checksum 75d0695c6b7c900bc4afc35f86af78a7022f2c96bd8e83a9685b814ff416cc62
+public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activity
+  minor version: 0
+  major version: 50
+  flags: (0x0021) ACC_PUBLIC, ACC_SUPER
+  this_class: #2                          // sg/vantagepoint/uncrackable1/MainActivity
+  super_class: #4                         // android/app/Activity
+  interfaces: 0, fields: 0, methods: 4, attributes: 1
+Constant pool:
+    #1 = Utf8               sg/vantagepoint/uncrackable1/MainActivity
+    #2 = Class              #1            // sg/vantagepoint/uncrackable1/MainActivity
+    #3 = Utf8               android/app/Activity
+    #4 = Class              #3            // android/app/Activity
+    #5 = Utf8               sg/vantagepoint/uncrackable1/MainActivity$1
+    #6 = Class              #5            // sg/vantagepoint/uncrackable1/MainActivity$1
+    #7 = Utf8               sg/vantagepoint/uncrackable1/MainActivity$2
+    #8 = Class              #7            // sg/vantagepoint/uncrackable1/MainActivity$2
+    #9 = Utf8               <init>
+   #10 = Utf8               ()V
+   #11 = NameAndType        #9:#10        // "<init>":()V
+   #12 = Methodref          #4.#11        // android/app/Activity."<init>":()V
+   #13 = Utf8               Code
+   #14 = Utf8               a
+   #15 = Utf8               (Ljava/lang/String;)V
+   #16 = Utf8               android/app/AlertDialog$Builder
+   #17 = Class              #16           // android/app/AlertDialog$Builder
+   #18 = Utf8               (Landroid/content/Context;)V
+   #19 = NameAndType        #9:#18        // "<init>":(Landroid/content/Context;)V
+   #20 = Methodref          #17.#19       // android/app/AlertDialog$Builder."<init>":(Landroid/content/Context;)V
+   #21 = Utf8               create
+   #22 = Utf8               ()Landroid/app/AlertDialog;
+   #23 = NameAndType        #21:#22       // create:()Landroid/app/AlertDialog;
+   #24 = Methodref          #17.#23       // android/app/AlertDialog$Builder.create:()Landroid/app/AlertDialog;
+   #25 = Utf8               android/app/AlertDialog
+   #26 = Class              #25           // android/app/AlertDialog
+   #27 = Utf8               setTitle
+   #28 = Utf8               (Ljava/lang/CharSequence;)V
+   #29 = NameAndType        #27:#28       // setTitle:(Ljava/lang/CharSequence;)V
+   #30 = Methodref          #26.#29       // android/app/AlertDialog.setTitle:(Ljava/lang/CharSequence;)V
+   #31 = Utf8               This is unacceptable. The app is now going to exit.
+   #32 = String             #31           // This is unacceptable. The app is now going to exit.
+   #33 = Utf8               setMessage
+   #34 = NameAndType        #33:#28       // setMessage:(Ljava/lang/CharSequence;)V
+   #35 = Methodref          #26.#34       // android/app/AlertDialog.setMessage:(Ljava/lang/CharSequence;)V
+   #36 = Utf8               OK
+   #37 = String             #36           // OK
+   #38 = Utf8               (Lsg/vantagepoint/uncrackable1/MainActivity;)V
+   #39 = NameAndType        #9:#38        // "<init>":(Lsg/vantagepoint/uncrackable1/MainActivity;)V
+   #40 = Methodref          #6.#39        // sg/vantagepoint/uncrackable1/MainActivity$1."<init>":(Lsg/vantagepoint/uncrackable1/MainActivity;)V
+   #41 = Utf8               setButton
+   #42 = Utf8               (ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V
+   #43 = NameAndType        #41:#42       // setButton:(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V
+   #44 = Methodref          #26.#43       // android/app/AlertDialog.setButton:(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V
+   #45 = Utf8               setCancelable
+   #46 = Utf8               (Z)V
+   #47 = NameAndType        #45:#46       // setCancelable:(Z)V
+   #48 = Methodref          #26.#47       // android/app/AlertDialog.setCancelable:(Z)V
+   #49 = Utf8               show
+   #50 = NameAndType        #49:#10       // show:()V
+   #51 = Methodref          #26.#50       // android/app/AlertDialog.show:()V
+   #52 = Utf8               onCreate
+   #53 = Utf8               (Landroid/os/Bundle;)V
+   #54 = Utf8               sg/vantagepoint/a/c
+   #55 = Class              #54           // sg/vantagepoint/a/c
+   #56 = Utf8               ()Z
+   #57 = NameAndType        #14:#56       // a:()Z
+   #58 = Methodref          #55.#57       // sg/vantagepoint/a/c.a:()Z
+   #59 = Utf8               b
+   #60 = NameAndType        #59:#56       // b:()Z
+   #61 = Methodref          #55.#60       // sg/vantagepoint/a/c.b:()Z
+   #62 = Utf8               c
+   #63 = NameAndType        #62:#56       // c:()Z
+   #64 = Methodref          #55.#63       // sg/vantagepoint/a/c.c:()Z
+   #65 = Utf8               Root detected!
+   #66 = String             #65           // Root detected!
+   #67 = NameAndType        #14:#15       // a:(Ljava/lang/String;)V
+   #68 = Methodref          #2.#67        // sg/vantagepoint/uncrackable1/MainActivity.a:(Ljava/lang/String;)V
+   #69 = Utf8               getApplicationContext
+   #70 = Utf8               ()Landroid/content/Context;
+   #71 = NameAndType        #69:#70       // getApplicationContext:()Landroid/content/Context;
+   #72 = Methodref          #2.#71        // sg/vantagepoint/uncrackable1/MainActivity.getApplicationContext:()Landroid/content/Context;
+   #73 = Utf8               sg/vantagepoint/a/b
+   #74 = Class              #73           // sg/vantagepoint/a/b
+   #75 = Utf8               (Landroid/content/Context;)Z
+   #76 = NameAndType        #14:#75       // a:(Landroid/content/Context;)Z
+   #77 = Methodref          #74.#76       // sg/vantagepoint/a/b.a:(Landroid/content/Context;)Z
+   #78 = Utf8               App is debuggable!
+   #79 = String             #78           // App is debuggable!
+   #80 = NameAndType        #52:#53       // onCreate:(Landroid/os/Bundle;)V
+   #81 = Methodref          #4.#80        // android/app/Activity.onCreate:(Landroid/os/Bundle;)V
+   #82 = Integer            2130903040
+   #83 = Utf8               setContentView
+   #84 = Utf8               (I)V
+   #85 = NameAndType        #83:#84       // setContentView:(I)V
+   #86 = Methodref          #2.#85        // sg/vantagepoint/uncrackable1/MainActivity.setContentView:(I)V
+   #87 = Utf8               verify
+   #88 = Utf8               (Landroid/view/View;)V
+   #89 = Integer            2130837505
+   #90 = Utf8               findViewById
+   #91 = Utf8               (I)Landroid/view/View;
+   #92 = NameAndType        #90:#91       // findViewById:(I)Landroid/view/View;
+   #93 = Methodref          #2.#92        // sg/vantagepoint/uncrackable1/MainActivity.findViewById:(I)Landroid/view/View;
+   #94 = Utf8               android/widget/EditText
+   #95 = Class              #94           // android/widget/EditText
+   #96 = Utf8               getText
+   #97 = Utf8               ()Landroid/text/Editable;
+   #98 = NameAndType        #96:#97       // getText:()Landroid/text/Editable;
+   #99 = Methodref          #95.#98       // android/widget/EditText.getText:()Landroid/text/Editable;
+  #100 = Utf8               java/lang/Object
+  #101 = Class              #100          // java/lang/Object
+  #102 = Utf8               toString
+  #103 = Utf8               ()Ljava/lang/String;
+  #104 = NameAndType        #102:#103     // toString:()Ljava/lang/String;
+  #105 = Methodref          #101.#104     // java/lang/Object.toString:()Ljava/lang/String;
+  #106 = Utf8               sg/vantagepoint/uncrackable1/a
+  #107 = Class              #106          // sg/vantagepoint/uncrackable1/a
+  #108 = Utf8               (Ljava/lang/String;)Z
+  #109 = NameAndType        #14:#108      // a:(Ljava/lang/String;)Z
+  #110 = Methodref          #107.#109     // sg/vantagepoint/uncrackable1/a.a:(Ljava/lang/String;)Z
+  #111 = Utf8               Success!
+  #112 = String             #111          // Success!
+  #113 = Utf8               This is the correct secret.
+  #114 = String             #113          // This is the correct secret.
+  #115 = Utf8               Nope...
+  #116 = String             #115          // Nope...
+  #117 = Utf8               That\'s not it. Try again.
+  #118 = String             #117          // That\'s not it. Try again.
+  #119 = Methodref          #8.#39        // sg/vantagepoint/uncrackable1/MainActivity$2."<init>":(Lsg/vantagepoint/uncrackable1/MainActivity;)V
+  #120 = Utf8               InnerClasses
+{
+  public sg.vantagepoint.uncrackable1.MainActivity();
+    descriptor: ()V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #12                 // Method android/app/Activity."<init>":()V
+         4: return
+
+  private void a(java.lang.String);
+    descriptor: (Ljava/lang/String;)V
+    flags: (0x0002) ACC_PRIVATE
+    Code:
+      stack=6, locals=3, args_size=2
+         0: new           #17                 // class android/app/AlertDialog$Builder
+         3: dup
+         4: aload_0
+         5: invokespecial #20                 // Method android/app/AlertDialog$Builder."<init>":(Landroid/content/Context;)V
+         8: invokevirtual #24                 // Method android/app/AlertDialog$Builder.create:()Landroid/app/AlertDialog;
+        11: astore_2
+        12: aload_2
+        13: aload_1
+        14: invokevirtual #30                 // Method android/app/AlertDialog.setTitle:(Ljava/lang/CharSequence;)V
+        17: aload_2
+        18: ldc           #32                 // String This is unacceptable. The app is now going to exit.
+        20: invokevirtual #35                 // Method android/app/AlertDialog.setMessage:(Ljava/lang/CharSequence;)V
+        23: aload_2
+        24: bipush        -3
+        26: ldc           #37                 // String OK
+        28: new           #6                  // class sg/vantagepoint/uncrackable1/MainActivity$1
+        31: dup
+        32: aload_0
+        33: invokespecial #40                 // Method sg/vantagepoint/uncrackable1/MainActivity$1."<init>":(Lsg/vantagepoint/uncrackable1/MainActivity;)V
+        36: invokevirtual #44                 // Method android/app/AlertDialog.setButton:(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V
+        39: aload_2
+        40: iconst_0
+        41: invokevirtual #48                 // Method android/app/AlertDialog.setCancelable:(Z)V
+        44: aload_2
+        45: invokevirtual #51                 // Method android/app/AlertDialog.show:()V
+        48: return
+
+  protected void onCreate(android.os.Bundle);
+    descriptor: (Landroid/os/Bundle;)V
+    flags: (0x0004) ACC_PROTECTED
+    Code:
+      stack=2, locals=2, args_size=2
+         0: invokestatic  #58                 // Method sg/vantagepoint/a/c.a:()Z
+         3: ifne          18
+         6: invokestatic  #61                 // Method sg/vantagepoint/a/c.b:()Z
+         9: ifne          18
+        12: invokestatic  #64                 // Method sg/vantagepoint/a/c.c:()Z
+        15: ifeq          24
+        18: aload_0
+        19: ldc           #66                 // String Root detected!
+        21: invokespecial #68                 // Method a:(Ljava/lang/String;)V
+        24: aload_0
+        25: invokevirtual #72                 // Method getApplicationContext:()Landroid/content/Context;
+        28: invokestatic  #77                 // Method sg/vantagepoint/a/b.a:(Landroid/content/Context;)Z
+        31: ifeq          40
+        34: aload_0
+        35: ldc           #79                 // String App is debuggable!
+        37: invokespecial #68                 // Method a:(Ljava/lang/String;)V
+        40: aload_0
+        41: aload_1
+        42: invokespecial #81                 // Method android/app/Activity.onCreate:(Landroid/os/Bundle;)V
+        45: aload_0
+        46: ldc           #82                 // int 2130903040
+        48: invokevirtual #86                 // Method setContentView:(I)V
+        51: return
+
+  public void verify(android.view.View);
+    descriptor: (Landroid/view/View;)V
+    flags: (0x0001) ACC_PUBLIC
+    Code:
+      stack=6, locals=3, args_size=2
+         0: aload_0
+         1: ldc           #89                 // int 2130837505
+         3: invokevirtual #93                 // Method findViewById:(I)Landroid/view/View;
+         6: checkcast     #95                 // class android/widget/EditText
+         9: invokevirtual #99                 // Method android/widget/EditText.getText:()Landroid/text/Editable;
+        12: invokevirtual #105                // Method java/lang/Object.toString:()Ljava/lang/String;
+        15: astore_1
+        16: new           #17                 // class android/app/AlertDialog$Builder
+        19: dup
+        20: aload_0
+        21: invokespecial #20                 // Method android/app/AlertDialog$Builder."<init>":(Landroid/content/Context;)V
+        24: invokevirtual #24                 // Method android/app/AlertDialog$Builder.create:()Landroid/app/AlertDialog;
+        27: astore_2
+        28: aload_1
+        29: invokestatic  #110                // Method sg/vantagepoint/uncrackable1/a.a:(Ljava/lang/String;)Z
+        32: ifeq          52
+        35: aload_2
+        36: ldc           #112                // String Success!
+        38: invokevirtual #30                 // Method android/app/AlertDialog.setTitle:(Ljava/lang/CharSequence;)V
+        41: ldc           #114                // String This is the correct secret.
+        43: astore_1
+        44: aload_2
+        45: aload_1
+        46: invokevirtual #35                 // Method android/app/AlertDialog.setMessage:(Ljava/lang/CharSequence;)V
+        49: goto          64
+        52: aload_2
+        53: ldc           #116                // String Nope...
+        55: invokevirtual #30                 // Method android/app/AlertDialog.setTitle:(Ljava/lang/CharSequence;)V
+        58: ldc           #118                // String That\'s not it. Try again.
+        60: astore_1
+        61: goto          44
+        64: aload_2
+        65: bipush        -3
+        67: ldc           #37                 // String OK
+        69: new           #8                  // class sg/vantagepoint/uncrackable1/MainActivity$2
+        72: dup
+        73: aload_0
+        74: invokespecial #119                // Method sg/vantagepoint/uncrackable1/MainActivity$2."<init>":(Lsg/vantagepoint/uncrackable1/MainActivity;)V
+        77: invokevirtual #44                 // Method android/app/AlertDialog.setButton:(ILjava/lang/CharSequence;Landroid/content/DialogInterface$OnClickListener;)V
+        80: aload_2
+        81: invokevirtual #51                 // Method android/app/AlertDialog.show:()V
+        84: return
+}
+InnerClasses:
+  #6;                                     // class sg/vantagepoint/uncrackable1/MainActivity$1
+  #8;                                     // class sg/vantagepoint/uncrackable1/MainActivity$2
