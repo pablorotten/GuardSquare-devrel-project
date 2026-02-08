@@ -85,10 +85,9 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
             invokevirtual android.app.AlertDialog$Builder#android.app.AlertDialog create()
             astore_2
             aload_1
-            invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
-            ifeq label1
+            ifeq label1 // comparison
             aload_2
-            ldc "Success!"
+            ldc "Success!" // ⭐ The Goal ⭐
             invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
             ldc "This is the correct secret."
             astore_1

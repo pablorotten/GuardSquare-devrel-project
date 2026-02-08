@@ -31,7 +31,7 @@ Build the project
 ```
 Get the generated `assembler.jar`
 ```
-proguard-assembler-master\pga-cli\build\libs\assembler.jar
+proguard-assembler-master\lib
 ```
 
 > [!TIP]
@@ -199,16 +199,18 @@ java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
 
 ### 1.6 Why not use javap? II
 
+There are 2 reasons:
+* The output of `javap` is not designed to be human-readable.
+* `javap` is not designed to be reassembled back into a valid `.class` file. 
 
-
-
-### 1.7 How to fix this
+### 1.7 How to fix the problem of Uncrackable L1?
 
 * String Encryption (DexGuard/ProGuard): This would encrypt the key itself and only decrypt it in memory for a split second when needed. In your .jbc file, you wouldn't see 8d12..., you would see a scrambled mess that only unscrambles at runtime.
 
 * Android Keystore: Instead of putting the key in the code, the app should generate a key inside the phone's dedicated security chip (the TEE - Trusted Execution Environment). The code never actually "sees" the key; it just asks the chip to "please decrypt this for me."
 
 * Native Code (C/C++): Moving the key into a .so file (JNI) makes it slightly harder to find than in a standard .java or .jbc file, though a determined hacker can still find it using tools like Ghidra.
+
 
 ### 1.8 Conclusion
 
@@ -401,61 +403,3 @@ A tool that helps to sign, zip aligning and verifying APKs.
 ## JBC
 
 It's an internal format created by Guardsquare. While the content inside the file represents standard Java Bytecode that follows the official Java Virtual Machine Specification (JVMS), the specific syntax and the .jbc extension are unique to the ProGuard Assembler.
-
-
-# 🎬 Script of devrel video: Modifying Java ByteCode with ProGuard Assembler
-
-## 1. Presentation
-
-Hello everyone, 
-
-I'm **PabloDevRel** and today we are going to discover **ProGuard Assembler**. A **powerful** tool developed by **Guardsquare** to read and modify the bytecode of Java applications.
-
-## 2. Guardsquare
-
-Guarsquare is a leading company in mobile app security.
-
-They provide tools and services to protect mobile applications:
-
-> Opens proguard website and show the products
-
-Such as Dexguard, ixGuard for Android and iOS. AppSweep that performs security analysis of mobile apps. And the famous open source **ProGuard**: a Java shrinker, optimizer, obfuscator that it's a must in the Android development world.
-
-If we take a look to the [GitHub page](https://github.com/Guardsquare)
-
-> Opens proguard-assembler github page
-
-We can find next to **ProGuard**, **Proguard Assembler**, the tool we will explore today.
- 
-## 3. proguard-assembler setup
-
-We find this tool in GitHub as a gradle project. Let's download it
-
-> Download it, unzip it and enter in the folder
-
-No we are ready to build it
-
-> Do `./gradlew clean build` and go to `pga-cli/build/libs/` folder to get the `assembler.jar` file.
-
-This `assembler.jar` is the tool. Only this file is needed to run **proguard-assembler**. I will attach it to the video description to make it easier for you.
-
-## 4. UnCrackable L1 challenge
-
-We are going to use **proguard-assembler** to solve the famous **UnCrackable L1 challenge** from OWASP MASTG.
-
-> Opens OWASP MASTG website and download the challenge
-> Open Memu to show the apk
-
-This app asks for a secret password to show a success message. If we input a wrong password it shows an error message.
-
-## 5. Apk dex to jar conversion
-
-**proguard-assembler** can't process an apk directly. It needs the `.jar` with all the `.class` inside to generate the `.jbc` files.
-
-So first we unzip the apk to get `classes.dex`
-Then we use **dex2jar** to convert `classes.dex` into `classes-dex2jar.jar` with all the `.class` files inside.
-Now it's ready to be used with **proguard-assembler**
-
-## 6. Solve the challenge with proguard-assembler
-
-

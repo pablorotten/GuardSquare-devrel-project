@@ -1,0 +1,27 @@
+version 1.6;
+public class sg.vantagepoint.a.a extends java.lang.Object {
+
+    public static byte[] a(byte[], byte[]) { // hex = key, string = password
+            new javax.crypto.spec.SecretKeySpec
+            dup
+            aload_0
+            ldc "AES/ECB/PKCS7Padding"
+            // Create Key Object with key and AES algorithm
+            invokespecial javax.crypto.spec.SecretKeySpec#void <init>(byte[],java.lang.String)
+            astore_2 
+            // Get Cipher instance for AES algorithm
+            ldc "AES"
+            invokestatic javax.crypto.Cipher#javax.crypto.Cipher getInstance(java.lang.String)
+            astore_0
+            aload_0
+            iconst_2
+            aload_2
+            // Initialize the Cipher with the Key object in Decrypt mode
+            invokevirtual javax.crypto.Cipher#void init(int,java.security.Key)
+            aload_0 
+            aload_1
+            // Decrypt the secret
+            invokevirtual javax.crypto.Cipher#byte[] doFinal(byte[]) // decrypt the password
+            areturn
+    }
+}

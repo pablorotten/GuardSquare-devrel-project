@@ -2,37 +2,35 @@ version 1.6;
 public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
 
     public static boolean a(java.lang.String) {
-            // 2. Password to decrypt converted into byte with Base64 
-            ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="
+            ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc=" // Random string?
             iconst_0
-            invokestatic android.util.Base64#byte[] decode(java.lang.String,int)
+            invokestatic android.util.Base64#byte[] decode(java.lang.String,int) // Decoded with Base64
             astore_1
         label2:
-            // 3. The AES Key converted to byte with hex
-            ldc "8d127684cbc37c17616d806cf50473cc"
-            invokestatic #byte8d127684cbc37c17616d806cf50473cc[] b(java.lang.String)
+            ldc "8d127684cbc37c17616d806cf50473cc" // Hex number
+            invokestatic #byte[] b(java.lang.String) // Decoded with ???
             aload_1
-            invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[])
+            invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[]) // ???
             astore_1
         label3:
             goto label1
         catch java.lang.Exception label2 label3
-            astore_2
+            astore_1
             new java.lang.StringBuilder
             dup
             invokespecial java.lang.StringBuilder#void <init>()
-            astore_1
-            aload_1
+            astore_2
+            aload_2
             ldc "AES error:"
             invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
             pop
-            aload_1
             aload_2
+            aload_1
             invokevirtual java.lang.Exception#java.lang.String getMessage()
             invokevirtual java.lang.StringBuilder#java.lang.StringBuilder append(java.lang.String)
             pop
             ldc "CodeCheck"
-            aload_1
+            aload_2
             invokevirtual java.lang.StringBuilder#java.lang.String toString()
             invokestatic android.util.Log#int d(java.lang.String,java.lang.String)
             pop
@@ -49,7 +47,7 @@ public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
             ireturn
     }
 
-    public static byte[] b(java.lang.String) {
+    public static byte[] b(java.lang.String) { // "8d127684cbc37c17616d806cf50473cc"
             aload_0
             invokevirtual java.lang.String#int length()
             istore_2
@@ -58,31 +56,31 @@ public class sg.vantagepoint.uncrackable1.a extends java.lang.Object {
             idiv
             newarray byte
             astore_3
-            iconst_0
-            istore_1
-        label2:
+            iconst_0 
+            istore_1 // counter = 0
+        label2: // loop
             iload_1
             iload_2
-            if_icmpge label1
+            if_icmpge label1 // exit condition
             aload_3
             iload_1
             iconst_2
             idiv
-            aload_0
-            iload_1
-            invokevirtual java.lang.String#char charAt(int)
-            bipush 16
-            invokestatic java.lang.Character#int digit(char,int)
+            aload_0 // "8d127684cbc37c17616d806cf50473cc"
+            iload_1 // load counter: 0
+            invokevirtual java.lang.String#char charAt(int) // char at position 0: "8"
+            bipush 16  
+            invokestatic java.lang.Character#int digit(char,int) // char "8", radix 16: 8 --> 0000 1000
             iconst_4
-            ishl
-            aload_0
+            ishl // shift 4 positions: 1000 0000
+            aload_0 // load again "8d127684cbc37c17616d806cf50473cc"
             iload_1
             iconst_1
-            iadd
-            invokevirtual java.lang.String#char charAt(int)
+            iadd // increment counter: 1
+            invokevirtual java.lang.String#char charAt(int) // char at position 1: "d"
             bipush 16
-            invokestatic java.lang.Character#int digit(char,int)
-            iadd
+            invokestatic java.lang.Character#int digit(char,int) // char "d", radix 16: 13 --> 0000 1101
+            iadd // add to the previous number: (shifted "8") 1000 0000 + ("d") 0000 1101 = 1000 1101 <-- 1 byte representation of "8d"
             i2b
             bastore
             iinc 1 2
