@@ -2,11 +2,11 @@
 
 | Section | Duration | Focus |
 | --- | --- | --- |
-| 1. Presentation | 0:45 | Branding & ProGuard ecosystem. |
-| 2. Setup | 1:15 | Building the tool (shows you're a dev). |
-| 3. Challenge | 1:00 | The "Problem" (The App's locked door). |
-| 4. Disassembly | 0:45 | From .jar to .jbc. |
-| 5. Analysis | 2:30 | The logic (Hex, Base64, AES, ifeq). |
+| 1. Presentation | 0:30 | Branding & ProGuard ecosystem. |
+| 2. Setup | 0:45 | Building the tool (shows you're a dev). |
+| 3. Challenge | 0:50 | The "Problem" (The App's locked door). |
+| 4. Disassembly | 0:15 | From .jar to .jbc. |
+| 5. Analysis | 4:00 | The logic (Hex, Base64, AES, ifeq). |
 | 6. Why JBC? | 0:45 | Precision vs. Readability. |
 | 7. The Patch | 2:00 | Modifying and Resigning (The "Aha!" moment). |
 | 8. Conclusion | 0:45 | Call to action & Guardsquare shoutout. |
@@ -32,8 +32,8 @@ We can find next to **ProGuard**, **Proguard Assembler**, the tool we will explo
 
 **proguard-assembler** can take a `.jar` file, extract the `.class` it has inside; and disassemble them into readable `.jbc` (Java ByteCode) files. And then, it can do the opposite. From `jbc` files, it can assemble them back into `.class` files and put them in a `.jar`.
 
-JBC is an internal format created by Guardsquare that represents Java bytecode in a human readable format. It is not an official format, but it is designed to be easy to read, understand and modify.
-> Show a `.jbc` file to show how it looks like  
+JBC is an internal format created by Guardsquare that represents a more human readable Java bytecode. It is not official, but it is designed to be easy to read, understand and modify.
+> Show meanwhile `.jbc` file to show how it looks like in a slow scroll
 
 We find this tool in GitHub as a Gradle project. We have to download it and build it to get the `assembler.jar` file.
 > Show the README file in the GitHub page to show how to build it
@@ -66,6 +66,8 @@ So we need to convert the apk into a jar file. We can do that with a tool called
 Now, with `classes-dex2jar.jar` file, we can run the assembler to get all the `jbc`.
 
 > run the command `java -jar ./assembler.jar ./classes-dex2jar.jar ./assembler-output` and open assembler-output folder with vscode to show the `jbc`
+
+This is how the dissasembled app looks like. 
 
 ## 5. Analysis
 
