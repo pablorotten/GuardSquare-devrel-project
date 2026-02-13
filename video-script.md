@@ -132,3 +132,9 @@ But it doesn't stop there. This same bytecode logic is what powers:
 `DexGuard` & `iXGuard`: To obfuscate and encrypt your app,
 
 `AppSweep`: To scan the bytecode for vulnerabilities like the one we just exploited.
+
+## 9. Thanks for watching!
+
+Thank you for watching this video! I hope you found it interesting and learned something new about Java bytecode.
+
+If you want to learn more, check my GitHub repository where I have all the code and resources used in this video.
