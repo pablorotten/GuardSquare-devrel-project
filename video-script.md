@@ -1,15 +1,15 @@
 # 🎬 Script of devrel video: Modifying Java ByteCode with ProGuard Assembler
 
-| Section | Duration | Focus |
-| --- | --- | --- |
-| 1. Presentation | 0:30 | Branding & ProGuard ecosystem. |
-| 2. Setup | 0:45 | Building the tool (shows you're a dev). |
-| 3. Challenge | 0:50 | The "Problem" (The App's locked door). |
-| 4. Disassembly | 0:15 | From .jar to .jbc. |
-| 5. Analysis | 4:00 | The logic (Hex, Base64, AES, ifeq). |
-| 6. Why JBC? | 0:45 | Precision vs. Readability. |
-| 7. The Patch | 2:00 | Modifying and Resigning (The "Aha!" moment). |
-| 8. Conclusion | 0:45 | Call to action & Guardsquare shoutout. |
+| Section         | Duration | Focus                                        |
+| --------------- | -------- | -------------------------------------------- |
+| 1. Presentation | 0:30     | Branding & ProGuard ecosystem.               |
+| 2. Setup        | 0:45     | Building the tool (shows you're a dev).      |
+| 3. Challenge    | 0:50     | The "Problem" (The App's locked door).       |
+| 4. Disassembly  | 0:15     | From .jar to .jbc.                           |
+| 5. Analysis     | 4:00     | The logic (Hex, Base64, AES, ifeq).          |
+| 6. Why JBC?     | 0:45     | Precision vs. Readability.                   |
+| 7. The Patch    | 2:00     | Modifying and Resigning (The "Aha!" moment). |
+| 8. Conclusion   | 0:45     | Call to action & Guardsquare shoutout.       |
 
 ## 1. Presentation
 
@@ -20,7 +20,7 @@ Guardsquare provide tools and services to protect mobile applications:
 
 > Open Guardsquare website and show the products
 
-Such as [...] and **ProGuard**: an open source Java shrinker, optimizer, obfuscator that it's a must in the Android development world.
+Such as [...] and **ProGuard**: an open source Java shrinker, optimizer and obfuscator that it's a must in the Android development world.
 
 If we take a look to the [GitHub page](https://github.com/Guardsquare)
 
@@ -30,10 +30,12 @@ We can find next to **ProGuard**, **Proguard Assembler**, the tool we will explo
  
 ## 2. Setup
 
-**proguard-assembler** can take a `.jar` file, extract the `.class` it has inside; and disassemble them into readable `.jbc` (Java ByteCode) files. And then, it can do the opposite. From `jbc` files, it can assemble them back into `.class` files and put them in a `.jar`.
+**proguard-assembler** can take a `.jar` file, extract the `.class` it has inside; and disassemble them into readable `.jbc` (Java ByteCode) files. 
 
 JBC is an internal format created by Guardsquare that represents a more human readable Java bytecode. It is not official, but it is designed to be easy to read, understand and modify.
 > Show meanwhile `.jbc` file to show how it looks like in a slow scroll
+
+Then, we can modify the JBC file, and with **proguard-assembler** do the opposite: Assemble them back into classes  and put them in a `.jar`
 
 We find this tool in GitHub as a Gradle project. We have to download it and build it to get the `assembler.jar` file.
 > Show the README file in the GitHub page to show how to build it
@@ -42,23 +44,24 @@ We find this tool in GitHub as a Gradle project. We have to download it and buil
 
 ## 3. Challenge
 
-Alright! Time to see **proguard-assembler** in action.
+Time to see **proguard-assembler** in action!
 
 > Open OWASP MASTG website
 
-This is the **OWASP Mobile Application Security** website. It provides a set of challenges to practice mobile app security testing. They are meant to be solved by reverse engineering the apps, so let's try one of them.
+We are going to solve one of the MAS Crackmes challenges. from **OWASP Mobile Application Security** website. They are meant to be solved by reverse engineering, so let's try one of them.
 
 > ✂️ Download **UnCrackable L1** and install it in an Android emulator ✂️
 
-I've installed the app in MeMu emulator. Let's open it to see what it does.
-This app asks for a secret password. If we input a wrong password it shows an error message.
+I've installed the app in this Android emulator. Let's open it to see what it does.
+It asks for a secret string. If we input a wrong one, it shows an error message.
 
 > Open the app and enter a random password to show the error message
 
-**proguard-assembler** can't process an apk directly. It needs a `.jar` file.
+**proguard-assembler** can't process an apk. It needs a `.jar` file.
+
 > Show the usage in the README file
 
-So we need to convert the apk into a jar file. We can do that with a tool called `dex2jar`.
+We need to convert the apk into a jar. We can do that with a tool called `dex2jar`, that extracts the classes inside the apk and creates a `.jar` file
 > Show the dex2jar GitHub page, run the command and show the `classes-dex2jar.jar` file
 
 ## 4. Disassembly
@@ -93,23 +96,39 @@ We are ready to solve the challenge. This part can be a bit technical, so I will
 
 ## 6. Why JBC? 
 
-You might be thinking, why all this hustle? With other tools such as `jadx` or `Jeb` we could have not only decompiled the app, but also got the source code in a more readable format. So why would we want to use proguard-assembler?
-This is because we haven't unleashed the full potential of proguard-assembler 😉
+So far, we have been able to disassemble the app and understand the JBC code to find the correct password. But we haven't unleashed the full potential of **proguard-assembler**. Remember that we can also modify the JBC code and assemble it back to a jar file.
+
 
 ## 7. The Patch
 
-Remember that ifeq condition in the `verify()` method? 
+We're back into `MainActivity.jbc`
+
+This is the `a()` method thata decrypts the password and compares with user's input. It returns a boolean, and then, the next  `ifeq` instruction takes it and determines if we see the "Success!" or the "Error!" message.
+
+We just need to delete the `ifeq` and we will always see the "Success!" message !!!
+
 > Show the jbc code. The part of `ifeq` "Jump if 0 (False)."
 
-What if, instead of trying to find the correct password, we just modify the code to always show "Success!"?
+Then it comes the boring part:
+* Assemble the modified jbc files back to jar with **proguard-assembler**
+* Convert jar into dex file with `jar2dex`
+* Replace the original `classes.dex` with the modified one
+* Sign it with `uber-apk-signer`
+* And finally, install it in the Android emulator.
+
 > Show how to modify the code to always show "Success!" and then run the assembler to get the modified jar file
 > Show how to convert the modified jar file back to apk with `jar2dex` and sign it with `apksigner`
 > Install the modified apk in the emulator and show that it always shows "Success!" regardless of the password we input
 
 ## 8. Conclusion
 
-With proguard-assembler we can not only analyze the bytecode of an app, but also modify it to change its behavior. This tool can be used standalone, or as a library in our own projects to automate the process of modifying bytecode.
+We’ve just seen how to work directly at the bytecode level. 
+This is the 'source of truth' where all Guardsquare tools operate.
 
-While we can patch this open-source challenge easily, this is exactly why enterprise tools like `DexGuard` use **App Integrity** to detect if the bytecode has been modified.
+This technology is the foundation of the open-source `ProGuard`, allowing it to analyze, shrink, and optimize Java code with total precision.
 
-We also learned about `jbc` and now we can understand at what level Guardsuqree's tools work, and how they can be used to protect our apps from reverse engineering and tampering.
+But it doesn't stop there. This same bytecode logic is what powers:
+
+`DexGuard` & `iXGuard`: To obfuscate and encrypt your app,
+
+`AppSweep`: To scan the bytecode for vulnerabilities like the one we just exploited.

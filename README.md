@@ -185,6 +185,10 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
 ```sh
 java -jar ./assembler.jar ./android.jar ./UnCrackable-Level1-patched ./UnCrackable-Level1-patched.jar
 ```
+
+
+And now it comes the boring part of generate the dex file, convert it to apk, sign it and install it in the emulator. 
+
 * Build the dex file with dex-tools
 ```sh
  C:\...\Apps\dex-tools-v2.4\d2j-jar2dex.bat ./UnCrackable-Level1-patched.jar
@@ -195,6 +199,7 @@ It produces `UnCrackable-Level1-patched-jar2dex.dex`
 ```sh
 java -jar uber-apk-signer-1.3.0.jar --apks UnCrackable-Level1-patched.apk
 ```
+
 * Install the app
 
 ### 1.6 Why not use javap? II
