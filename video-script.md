@@ -11,6 +11,28 @@
 | 7. The Patch    | 2:00     | Modifying and Resigning (The "Aha!" moment). |
 | 8. Conclusion   | 0:45     | Call to action & Guardsquare shoutout.       |
 
+
+# Feedback
+
+* [ ] Record again the thank you scene
+* [ ] Chapters in youtube with time stamps
+* [ ] Present myself at the beginning of the video
+* [ ] `dex2jar` part has to be 5 seconds
+* [ ] The JBC code part is too complex for general audience but too simple for technical audience. Focus on beginners:
+  * [ ] The part of modifying the code is a bit boring and pointless since we already solved the challenge:
+    * Run the app with root activated and show that the app detects it and closes immediately. 
+    * Modify the code to bypass the root detection and show that it works.
+  * [ ] Solving the challenge:
+    * Show the `ifeq` line that is used to jump to "Success!" or "Error!" message
+    * Show that the secret is decoded from `Base64`
+    * Show that the key is decoded from `hexadecimal`
+    * Show that we use the key and the `AES/ECB/PKCS7Padding` cipher to decrypt the secret and compare with user's input
+    * Meanwhile you see each of the key code lines, start building the recipe in parallel using **CyberChef**
+    * Delete the part of reading the documentation of `Cipher.init()`
+* [ ] I would start explaining why this is interesting, like why security in mobile applications is important and not always well implemented and how this owasp challenge is a little example. And in the end I'll retake this point adding that even if this is clearly a toy exercise the same strategy of reverse engineering can be used for more sophisticated attacks.
+* [ ] Explain better the goal of the video. Talk about security in mobile applications 
+* [ ] The "boring part" of converting from apk to jbc and the opposite explain it more visually with an animation.
+
 ## 1. Presentation
 
 Hello!!! 
@@ -20,7 +42,7 @@ Guardsquare provide tools and services to protect mobile applications:
 
 > Open Guardsquare website and show the products
 
-Such as [...] and **ProGuard**: an open source Java shrinker, optimizer and obfuscator that it's a must in the Android development world.
+Such as [...] and **ProGuard**.
 
 If we take a look to the [GitHub page](https://github.com/Guardsquare)
 
@@ -38,9 +60,7 @@ JBC is an internal format created by Guardsquare that represents a more human re
 Then, we can modify the JBC file, and with **proguard-assembler** do the opposite: Assemble them back into classes  and put them in a `.jar`
 
 We find this tool in GitHub as a Gradle project. We have to download it and build it to get the `assembler.jar` file.
-> Show the README file in the GitHub page to show how to build it
-> ✂️ Download, unzip, and build the project with `./gradlew clean build` ✂️
-> Show the `build/libs/assembler.jar` file
+> ⏩ Build the project in FF ⏩
 
 ## 3. Challenge
 
@@ -68,9 +88,7 @@ We need to convert the apk into a jar. We can do that with a tool called `dex2ja
 
 Now, with `classes-dex2jar.jar` file, we can run the assembler to get all the `jbc`.
 
-> run the command `java -jar ./assembler.jar ./classes-dex2jar.jar ./assembler-output` and open assembler-output folder with vscode to show the `jbc`
-
-This is how the dissasembled app looks like. 
+> run the command `java -jar ./assembler.jar ./classes-dex2jar.jar ./assembler-output` and show the output folder is created.
 
 ## 5. Analysis
 
@@ -98,7 +116,6 @@ We are ready to solve the challenge. This part can be a bit technical, so I will
 
 So far, we have been able to disassemble the app and understand the JBC code to find the correct password. But we haven't unleashed the full potential of **proguard-assembler**. Remember that we can also modify the JBC code and assemble it back to a jar file.
 
-
 ## 7. The Patch
 
 We're back into `MainActivity.jbc`
@@ -116,9 +133,7 @@ Then it comes the boring part:
 * Sign it with `uber-apk-signer`
 * And finally, install it in the Android emulator.
 
-> Show how to modify the code to always show "Success!" and then run the assembler to get the modified jar file
-> Show how to convert the modified jar file back to apk with `jar2dex` and sign it with `apksigner`
-> Install the modified apk in the emulator and show that it always shows "Success!" regardless of the password we input
+> Do all the steps in FF and in parallel using 
 
 ## 8. Conclusion
 
