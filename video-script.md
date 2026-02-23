@@ -5,8 +5,9 @@
 | 1. Presentation                | 0:30     | Why mobile security matters + OWASP context |
 | 2. Disassemble                 | 0:45     | Disassemble the app into JBC files          |
 | 3. Patch the app + reassemble  | 0:30     | Remove root check and assemble back         |
-| 4. Solve the challenge         | 4:00     | Find the secret and decrypt it              |
-| 5. Conclusion                  | 0:45     | Show Guardsquare products                   |
+| 4. Fake goodbye                | 4:00     | Find the secret and decrypt it              |
+| 5. Solve the challenge         | 4:00     | Find the secret and decrypt it              |
+| 6. Conclusion                  | 0:45     | Show Guardsquare products                   |
 
 **Total:** 6:30
 
@@ -132,9 +133,89 @@ They have features like **Anti-tampering** that causes the app to crash if it de
 
 Another interesintg tool is **AppSweep**, that can help you to find vulnerabilities in your app before the hackers do.
 
-## 4. Solve the challenge 
+## 4. Fake goodbye
 
-Now we can solve the challenge.
+- Thank you for watching this video, I hope you found it interesting and useful...
+- But Pablo, you didn't solve the challenge yet!
+- Oops, you're right! I just bypassed the root check, but I didn't find the password.
+
+## 5. Solve the challenge 
+
+- If we look at the app, we can see a text input and a button. 
+- If we input a wrong secret like... hello...
+- it shows an "Nope!" message. We need to find the secret string to solve the challenge.
+
+To find the secret, we need to look at the code again.
+
+```jbc
+invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
+ifeq label1
+aload_2
+ldc "Success!"
+```
+
+- This is `MainActivity.jbc` again. 
+- And... 
+- `Success!` 
+- This is the message I want to see.
+- Let's take a look to the method a() that is called just before.
+
+```jbc
+public static boolean a(java.lang.String) {
+    ldc "5UJiFctbmgbDoLXmpL12mkno8HT4Lv8dlat8FxR2GOc="
+    iconst_0
+    invokestatic android.util.Base64#byte[] decode(java.lang.String,int)
+    astore_1
+  label2:
+    ldc "8d127684cbc37c17616d806cf50473cc"
+    invokestatic #byte[] b(java.lang.String)
+    aload_1
+    invokestatic sg.vantagepoint.a.a#byte[] a(byte[],byte[])
+    astore_1
+```
+- In a() method we see a first string decoded to byte array with `Base64.decode()`; a common encoding/decoding method to convert binary data to text and vice versa. 
+- Let's do the Base64 decoding using **CyberChef**. 
+- As you can see the string is converted to a bytearray.
+
+```jbc
+invokevirtual java.lang.String#char charAt(int)
+bipush 16
+invokestatic java.lang.Character#int digit(char,int)
+```
+- Now the second one, that is an  hexadecimal number, is converted to byte array with a custom method `b()`
+- The `b()` method does a direct convertion from heaxdecimal number to byte and groups them by 2 in an array 
+
+- We have the 2 the strings converted to byte arrays; those are the parameters of the final a() method.
+
+
+```jbc
+public static byte[] a(byte[], byte[]) {
+  new javax.crypto.spec.SecretKeySpec
+  dup
+  aload_0
+  ldc "AES/ECB/PKCS7Padding"
+  invokespecial javax.crypto.spec.SecretKeySpec#void <init>(byte[],java.lang.String)
+  astore_2
+  ldc "AES"
+  invokestatic javax.crypto.Cipher#javax.crypto.Cipher getInstance(java.lang.String)
+  astore_0
+  aload_0
+  iconst_2
+  aload_2
+  invokevirtual javax.crypto.Cipher#void init(int,java.security.Key)
+  aload_0
+  aload_1
+  invokevirtual javax.crypto.Cipher#byte[] doFinal(byte[])
+  areturn
+}
+```
+
+- This is where all the magic happens.
+- Here we see "AES/ECB", that is a type of encryption. It;s like a lock where you have to insert the key to open it.
+- The first byte array, the hex number, **is the key**. Because it's used to create a `SecretKeySpec` 
+- And the second byte array; the one decoded with Base64; is the secret. **The chest that keeps our treasure.**
+- The secret is decrypted with the key using the `Cipher` class.
+- Let's do this in CyberChef!!
 
 > [!NOTE]
 > Open again the JBC code and show the strings converted to byte code
@@ -143,8 +224,24 @@ Now we can solve the challenge.
 > Do in in **CyberChef** in parallel
 > Once we have the secret, try in the app and show that it works and we get the "Success!" message.
 
-## 5. Conclusion
+- First we define the lock: AES decryption with ECB mode
+- Then we insert the key, that is the hex number
+- And finally the chest, the secret, that is the Base64 string
+- And... we get the secret in cleartext! "I want to believe"
 
-if this is clearly a toy exercise , but the same strategy of reverse engineering can be used for more sophisticated attacks.
+## 6. Conclusion
 
-To protect against this kind of attacks, you can use Guardsquare products like **DexGuard** for Android and **iXGuard** for iOS. They have features like code obfuscation, string encryption, and tamper detection that can make it much harder for attackers to reverse engineer your app and find vulnerabilities.
+🧔‍♂️ The problem of this second part of the challenge is that 
+🖥️ there's sensitive information hardcoded in the app. 
+🧔‍♂️ This is NOT a good practice. But even if you need to do it, you should at least
+🖥️ protect it with a strong obfuscation and encryption.
+
+🧔‍♂️ Guardsquare tools can help with Code Virtualization. 
+🖥️ That takes the sensitive logic—like the AES decryption, or the hardcoded key— -and dissolves it into a randomized instruction set."
+
+https://www.youtube.com/watch?v=-xX_WmK3RdU
+
+🧔‍♂️ Thank you for watching this video, I hope you found it interesting and useful. 
+🧔‍♂️ If you want to learn more about this topic, 
+🖥️ check out the links in the description and my github repository where I have all the code and the steps to solve this challenge.
+🧔‍♂️ See you in the next time!

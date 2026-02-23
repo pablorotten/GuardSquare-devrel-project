@@ -1,11 +1,4 @@
-# 🛡️Guardsquare DevRel
-
-Offer: 
-
-* [https://www.linkedin.com/jobs/view/4160833895/](https://www.linkedin.com/jobs/view/4160833895/)   
-* [https://job-boards.greenhouse.io/guardsquare/jobs/6575758](https://job-boards.greenhouse.io/guardsquare/jobs/6575758) 
-
-# ProGuard open source tools: proguard-assemble
+# 🛡️Guardsquare DevRel: proguard-assembler
 
 https://github.com/Guardsquare/proguard-assembler
 
