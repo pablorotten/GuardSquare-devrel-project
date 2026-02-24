@@ -13,25 +13,25 @@
 
 # Feedback
 
-* [ ] Record again the thank you scene
+* [x] Record again the thank you scene
 * [ ] Chapters in youtube with time stamps
-* [ ] Present myself at the beginning of the video
-* [ ] `dex2jar` part has to be 5 seconds
-* [ ] The JBC code part is too complex for general audience but too simple for technical audience. Focus on beginners:
-  * [ ] The part of modifying the code is a bit boring and pointless since we already solved the challenge:
+* [x] Present myself at the beginning of the video
+* [x] `dex2jar` part has to be 5 seconds
+* [x] The JBC code part is too complex for general audience but too simple for technical audience. Focus on beginners:
+  * [x] The part of modifying the code is a bit boring and pointless since we already solved the challenge:
     * Run the app with root activated and show that the app detects it and closes immediately. 
     * Modify the code to bypass the root detection and show that it works.
-  * [ ] Solving the challenge:
+  * [x] Solving the challenge:
     * Show the `ifeq` line that is used to jump to "Success!" or "Error!" message
     * Show that the secret is decoded from `Base64`
     * Show that the key is decoded from `hexadecimal`
     * Show that we use the key and the `AES/ECB/PKCS7Padding` cipher to decrypt the secret and compare with user's input
     * Meanwhile you see each of the key code lines, start building the recipe in parallel using **CyberChef**
     * Delete the part of reading the documentation of `Cipher.init()`
-* [ ] I would start explaining why this is interesting, like why security in mobile applications is important and not always well implemented and how this owasp challenge is a little example. And in the end I'll retake this point adding that even if this is clearly a toy exercise the same strategy of reverse engineering can be used for more sophisticated attacks.
-* [ ] Explain better the goal of the video. Talk about security in mobile applications 
-* [ ] The "boring part" of converting from apk to jbc and the opposite explain it more visually with an animation.
-* [ ] What is JBC code explanation do it when already hacking with code
+* [x] I would start explaining why this is interesting, like why security in mobile applications is important and not always well implemented and how this owasp challenge is a little example. And in the end I'll retake this point adding that even if this is clearly a toy exercise the same strategy of reverse engineering can be used for more sophisticated attacks.
+* [x] Explain better the goal of the video. Talk about security in mobile applications 
+* [x] The "boring part" of converting from apk to jbc and the opposite explain it more visually with an animation.
+* [x] What is JBC code explanation do it when already hacking with code
 
 ## 1. Presentation
 
