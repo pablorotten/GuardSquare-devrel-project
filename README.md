@@ -1,4 +1,4 @@
-# GuardSquare devrel project
+# 🛡️GuardSquare devrel project
 
 The goal of this repositry is to gather all the material needed to make a devrel video about how to solve the Android UnCrackable L1 challenge with `proguard-assembler`.
 
