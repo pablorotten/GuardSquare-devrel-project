@@ -42,10 +42,11 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
     }
 
     protected void onCreate(android.os.Bundle) {
-            invokestatic sg.vantagepoint.a.c#boolean a()
-            ifne label1
-            invokestatic sg.vantagepoint.a.c#boolean b()
-            ifne label1
+            // Delete this code to skip the root check
+            // invokestatic sg.vantagepoint.a.c#boolean a()
+            // ifne label1
+            // invokestatic sg.vantagepoint.a.c#boolean b()
+            // ifne label1
             invokestatic sg.vantagepoint.a.c#boolean c()
             ifeq label2
         label1:
@@ -86,7 +87,7 @@ public class sg.vantagepoint.uncrackable1.MainActivity extends android.app.Activ
             astore_2
             aload_1
             invokestatic sg.vantagepoint.uncrackable1.a#boolean a(java.lang.String)
-            // ifeq label1
+            ifeq label1
             aload_2
             ldc "Success!"
             invokevirtual android.app.AlertDialog#void setTitle(java.lang.CharSequence)
