@@ -1,4 +1,3 @@
 /.obsidian
-
-# IntelliJ IDEA
 .idea/
+.vscode/
