@@ -17,7 +17,9 @@ Download from here: https://mas.owasp.org/crackmes/
 
 This challenge has 2 parts:
 1. Bypass the root check that shows the "Root detected!" message
+![img](images/root-detected.gif)
 2. Find the secret password that shows the "Success!" message
+![img](images/secret.gif)
 
 ## 1. Setup *proguard-assembler*
 
