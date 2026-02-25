@@ -1,17 +1,6 @@
-## Video timing plan
+# Video script
 
-| Section                        | Duration | Focus                                       |
-| ------------------------------ | -------- | ------------------------------------------- |
-| 1. Presentation                | 0:30     | Why mobile security matters + OWASP context |
-| 2. Disassemble                 | 0:45     | Disassemble the app into JBC files          |
-| 3. Patch the app + reassemble  | 0:30     | Remove root check and assemble back         |
-| 4. Fake goodbye                | 4:00     | Find the secret and decrypt it              |
-| 5. Solve the challenge         | 4:00     | Find the secret and decrypt it              |
-| 6. Conclusion                  | 0:45     | Show Guardsquare products                   |
-
-**Total:** 6:30
-
-# Feedback
+## Feedback
 
 * [x] Record again the thank you scene
 * [ ] Chapters in youtube with time stamps
