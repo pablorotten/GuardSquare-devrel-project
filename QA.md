@@ -1,4 +1,4 @@
-# Questions about ProGuard and DexGuard
+# Q&A
 
 **Q: Does public/private methods matter to ProGuard/DexGuard?**
 A: No, ProGuard and DexGuard will process all methods, regardless of their access modifiers. However, it is generally recommended to keep public methods that are part of the API or used for reflection, as obfuscating them may cause issues with external libraries or frameworks that rely on them.
