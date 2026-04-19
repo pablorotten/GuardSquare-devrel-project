@@ -22,7 +22,7 @@ public class App {
     System.out.println("Deserialized: name=" + p2.name + ", age=" + p2.age);
 
     // Using booking API
-    System.out.println("🏨 Booking 3 " + RestClient.getBooking("3"));
+    System.out.println("Raw Booking 3 " + RestClient.getBooking("3"));
 
     Booking booking1 = gson.fromJson(RestClient.getBooking("3"), Booking.class);
     System.out.println("📦 Gson Booking: " + booking1);

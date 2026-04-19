@@ -1,15 +1,24 @@
 package com.pablorotten;
-// {"firstname":"Jim","lastname":"Jones","totalprice":112,"depositpaid":true,"bookingdates":{"checkin":"2026-02-13","checkout":"2026-03-25"}}
+
+import com.google.gson.annotations.SerializedName;
+
 public class Booking {
+  @SerializedName("firstname")
   String firstname;
-  String lastname;
-  Integer totalprice;
-  Boolean depositpaid;
-  Dates bookingdates;
+  @SerializedName("lastname")
+  String lastName;
+  @SerializedName("totalprice")
+  Integer totalPrice;
+  @SerializedName("depositpaid")
+  Boolean depositPaid;
+  @SerializedName("bookingdates")
+  Dates bookingDates;
+  @SerializedName("additionalneeds")
+  String additionalNeeds;
 
   @Override
   public String toString() {
-    return "firstname=" + firstname + ", lastname=" + lastname + ", totalprice=" + totalprice +
-        ", depositpaid=" + depositpaid + ", bookingdates={" + bookingdates + "}";
+    return "First Name: " + firstname + ", Last Name: " + lastName + ", Total Price: " + totalPrice +
+        ", Deposit Paid: " + depositPaid + ", Booking Dates: " + bookingDates + ", Additional Needs: " + additionalNeeds;
   }
-}
+  }
