@@ -20,17 +20,38 @@ java -cp bin com.yourcompany.Main
 Hello world!
 ```
 
+**Q: When to use == vs .equals() in Java?**
+In Java, `==` is used to compare primitive types (like `int`, `char`, etc.) and to check if two object references point to the same object in memory. On the other hand, `.equals()` is a method that is used to compare the contents of two objects for equality (like `String`, `Integer`, etc.). It is important to use `.equals()` when comparing objects for logical equality, as it checks the actual data within the objects rather than just their memory addresses.
+
+**Q: What is static vs instance methods in Java and how does it affect ProGuard/DexGuard?**
+Static methods belong to the class and can be called without creating an instance of the class, while instance methods belong to an instance of the class and require an object to be called. ProGuard/DexGuard will obfuscate both static and instance methods, but it is important to use -keep rules to prevent obfuscation of critical static methods that may be accessed via reflection or used as entry points in the application. For instance methods, you should also use -keep rules if they are accessed via reflection or if they are part of the public API that needs to be preserved for external libraries or frameworks. Properly configuring ProGuard/DexGuard with -keep rules can help ensure that critical static and instance methods are not obfuscated, while still allowing for effective code obfuscation for security purposes.
+
+**Q: How to parse JSON in Java without using external libraries nor reflection?**
+Using `org.json` library (`JSONObject.getString()`): this is an external dependency but it is not reflection-based  — it parses the JSON string directly into a map-like structure, so field names are never involved:
+```java
+import org.json.JSONObject;
+
+JSONObject obj = new JSONObject("{\"name\": \"Pablo\", \"balance\": \"1000\"}");
+String name    = obj.getString("name");    // "Pablo"
+String balance = obj.getString("balance"); // "1000"
+```
+
+Because `org.json` does not use reflection on your classes (it just parses raw text), **ProGuard/DexGuard obfuscation has zero impact** on this approach — there are no field names to rename. This is the key difference vs. Gson/Jackson.
+
+### Gradle
+
 **Q: Make a Gradle project**
 Gradle it's a project manager that helps you manage dependencies, compile and run the project. 
 If you run `gradle init` in an empty directory, it will create a basic Gradle project structure with these files and directories:
 - `src/main/java`: where your source code goes
 - `src/test/java`: where your test code goes
+- `gradle/wrapper`: contains the Gradle Wrapper files (`gradle-wrapper.jar` and `gradle-wrapper.properties`) which allow you to run Gradle without having it installed globally on your system.
 - `build.gradle`: the build script. Defines the build configuration, dependencies, and tasks.
 - `settings.gradle`: the settings script. Defines the project name and module structure (for multi-module projects).
-- `gradle/wrapper`: contains the Gradle Wrapper files (`gradle-wrapper.jar` and `gradle-wrapper.properties`) which allow you to run Gradle without having it installed globally on your system.
 - `.gradle`: an internal directory used by Gradle to store cache and other build-related files (auto-generated, not manually edited)
 - `gradlew` and `gradlew.bat`: scripts to execute Gradle tasks on Linux/Mac and Windows respectively, using the Gradle Wrapper.
 - `gradle.properties`: optional, can be used to define project properties and settings such as
+- `gradle/libs.versions.toml`: optional, can be used to define dependency versions in a centralized way.
 
 ```
 gradle init --type java-application --dsl groovy --package com.pablorotten --project-name ProGuardLab
@@ -71,29 +92,46 @@ Generates this structure:
             gradle-wrapper.properties
 ```     
 
+**Q: How to work in a Gradle project?**
+
+#### Compile the project:
+
 To build and run the project, you can use:
 ```
 ./gradlew :app:run
 ```
+Clean and build the project:
+```
+./gradlew :app:clean :app:build
+``` 
+
+#### Add dependencies:
 
 
-**Q: When to use == vs .equals() in Java?**
-In Java, `==` is used to compare primitive types (like `int`, `char`, etc.) and to check if two object references point to the same object in memory. On the other hand, `.equals()` is a method that is used to compare the contents of two objects for equality (like `String`, `Integer`, etc.). It is important to use `.equals()` when comparing objects for logical equality, as it checks the actual data within the objects rather than just their memory addresses.
+Modern way (recommended) 
 
-**Q: What is static vs instance methods in Java and how does it affect ProGuard/DexGuard?**
-Static methods belong to the class and can be called without creating an instance of the class, while instance methods belong to an instance of the class and require an object to be called. ProGuard/DexGuard will obfuscate both static and instance methods, but it is important to use -keep rules to prevent obfuscation of critical static methods that may be accessed via reflection or used as entry points in the application. For instance methods, you should also use -keep rules if they are accessed via reflection or if they are part of the public API that needs to be preserved for external libraries or frameworks. Properly configuring ProGuard/DexGuard with -keep rules can help ensure that critical static and instance methods are not obfuscated, while still allowing for effective code obfuscation for security purposes.
-
-**Q: How to parse JSON in Java without using external libraries nor reflection?**
-Using `org.json` library (`JSONObject.getString()`): this is an external dependency but it is not reflection-based  — it parses the JSON string directly into a map-like structure, so field names are never involved:
-```java
-import org.json.JSONObject;
-
-JSONObject obj = new JSONObject("{\"name\": \"Pablo\", \"balance\": \"1000\"}");
-String name    = obj.getString("name");    // "Pablo"
-String balance = obj.getString("balance"); // "1000"
+On `gradle/libs.versions.tom` you can add dependencies like this:
+```toml
+[versions]
+gson = "2.8.9"
+[libraries]
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 ```
 
-Because `org.json` does not use reflection on your classes (it just parses raw text), **ProGuard/DexGuard obfuscation has zero impact** on this approach — there are no field names to rename. This is the key difference vs. Gson/Jackson.
+Then on `app/build.gradle` you can add the dependency like this:
+```groovy
+dependencies {
+    implementation libs.gson
+}
+```
+Old way (not recommended)
+
+Or you can add it directly on `app/build.gradle` like this:
+```groovy
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+```
 
 ## JVM
 **Q: Is there a mapping or a metadata created when java classes compiles? How does it interact with ProGuard/DexGuard?**

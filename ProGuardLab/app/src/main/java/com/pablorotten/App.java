@@ -3,12 +3,31 @@
  */
 package com.pablorotten;
 
+import com.google.gson.Gson;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
+        // Original behavior
         System.out.println(new App().getGreeting());
+
+        // Demonstrate Gson usage
+        Gson gson = new Gson();
+        Person p = new Person("Alice", 30);
+        String json = gson.toJson(p);
+        System.out.println("Serialized with Gson: " + json);
+
+        Person p2 = gson.fromJson(json, Person.class);
+        System.out.println("Deserialized: name=" + p2.name + ", age=" + p2.age);
+    }
+
+    static class Person {
+        String name;
+        int age;
+
+        Person(String name, int age) { this.name = name; this.age = age; }
     }
 }
