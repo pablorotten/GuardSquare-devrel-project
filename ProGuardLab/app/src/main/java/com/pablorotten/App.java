@@ -5,29 +5,30 @@ package com.pablorotten;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+  public static void main(String[] args) throws IOException, InterruptedException {
+    // Original behavior
+    System.out.println(new App().helloWorld());
 
-    public static void main(String[] args) {
-        // Original behavior
-        System.out.println(new App().getGreeting());
+    // Local JSON serialization/deserialization with Gson
+    Gson gson = new Gson();
+    Person p = new Person("Alice", 30);
+    String json = gson.toJson(p);
+    System.out.println("Serialized with Gson: " + json);
 
-        // Demonstrate Gson usage
-        Gson gson = new Gson();
-        Person p = new Person("Alice", 30);
-        String json = gson.toJson(p);
-        System.out.println("Serialized with Gson: " + json);
+    Person p2 = gson.fromJson(json, Person.class);
+    System.out.println("Deserialized: name=" + p2.name + ", age=" + p2.age);
 
-        Person p2 = gson.fromJson(json, Person.class);
-        System.out.println("Deserialized: name=" + p2.name + ", age=" + p2.age);
-    }
+    // Using booking API
+    System.out.println("🏨 Booking 3 " + RestClient.getBooking("3"));
 
-    static class Person {
-        String name;
-        int age;
+    Booking booking1 = gson.fromJson(RestClient.getBooking("3"), Booking.class);
+    System.out.println("📦 Gson Booking: " + booking1);
+  }
 
-        Person(String name, int age) { this.name = name; this.age = age; }
-    }
+  public String helloWorld() {
+    return "Hello World!";
+  }
 }
