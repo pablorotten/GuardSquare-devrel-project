@@ -15,6 +15,12 @@ repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 dependencies {
     // Use JUnit test framework.
     testImplementation libs.junit
@@ -24,13 +30,6 @@ dependencies {
 
     // Add Gson for JSON parsing/serialization
     implementation libs.gson
-}
-
-// Apply a specific Java toolchain to ease working on different environments.
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
 }
 
 application {

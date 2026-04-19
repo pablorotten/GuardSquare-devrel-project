@@ -94,6 +94,27 @@ Generates this structure:
 
 **Q: How to work in a Gradle project?**
 
+#### Define project JDK version:
+
+Easiest way is to use the foojay.io plugin. It will automatically download the specified JDK version and use it for compilation.
+
+Add the plugin to `settings.gradle`:
+```groovy
+plugins {
+    // Apply the foojay-resolver plugin to allow automatic download of JDKs
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+```
+
+Then on `app/build.gradle` you can specify the JDK version like this:
+```groovy
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+```
+
 #### Compile the project:
 
 To build and run the project, you can use:
@@ -106,7 +127,6 @@ Clean and build the project:
 ``` 
 
 #### Add dependencies:
-
 
 Modern way (recommended) 
 
