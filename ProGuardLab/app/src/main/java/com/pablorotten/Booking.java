@@ -16,6 +16,16 @@ public class Booking {
   @SerializedName("additionalneeds")
   String additionalNeeds;
 
+  // Not necessary for Gson since it can use reflection
+  public Booking(String firstname, String lastName, Integer totalPrice, Boolean depositPaid, Dates bookingDates, String additionalNeeds) {
+    this.firstname = firstname;
+    this.lastName = lastName;
+    this.totalPrice = totalPrice;
+    this.depositPaid = depositPaid;
+    this.bookingDates = bookingDates;
+    this.additionalNeeds = additionalNeeds;
+  }
+
   @Override
   public String toString() {
     return "First Name: " + firstname + ", Last Name: " + lastName + ", Total Price: " + totalPrice +
